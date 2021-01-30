@@ -8,13 +8,12 @@ public class SpawnIsland : MonoBehaviour {
     public int columns;
 
     public GameObject[] terrains;
-
     public GameObject island;
 
     private float nextXPosition = 0.0f;
     private float nextZPosition = 0.0f;
 
-    void Start() {
+    void Awake() {
 
         float tileSize = terrains[0].GetComponent<Renderer>().bounds.size.x;
 
@@ -30,10 +29,9 @@ public class SpawnIsland : MonoBehaviour {
         // Instantiate(island, new Vector3(centerX, 0, centerZ), Quaternion.identity);
         float islandSize = island.GetComponent<Renderer>().bounds.size.x;
 
-        float quanteVolteCiSta = islandSize / tileSize;
-        quanteVolteCiSta = quanteVolteCiSta * 3f;
+        float scaleFactor = (islandSize / tileSize)  * 4f;
 
-        island.transform.localScale += new Vector3(quanteVolteCiSta, quanteVolteCiSta, quanteVolteCiSta);
+        island.transform.localScale += new Vector3(scaleFactor, scaleFactor, scaleFactor);
 
         for(int i = 0; i < rows; i++) {
             for(int j = 0; j < columns; j++) {
@@ -45,5 +43,9 @@ public class SpawnIsland : MonoBehaviour {
                 nextZPosition = currentTerrain.GetComponent<Renderer>().bounds.size.z;
             }
         }
+
+        // maxClouds = Random.Range(500, 1000);
+        // generateClouds();
+
     }
 }
