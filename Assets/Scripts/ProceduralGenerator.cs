@@ -34,6 +34,8 @@ public class ProceduralGenerator : MonoBehaviour {
         island.transform.localScale += new Vector3(scaleFactor, scaleFactor, scaleFactor);
 
 
+        int seed = 0;
+
        for (int i = 0; i < rows; i++)
         {
             for (int j = 0; j < columns; j++)
@@ -41,8 +43,10 @@ public class ProceduralGenerator : MonoBehaviour {
                 nextXMoldPosition = i*mold.GetComponent<Renderer>().bounds.size.x;
                 nextZMoldPosition = j*mold.GetComponent<Renderer>().bounds.size.z;
 
-                int r = Random.Range(0, terrains.Length);
-                GameObject currentTerrain = terrains[r];
+                // int r = Random.Range(0, terrains.Length);
+                GameObject currentTerrain = terrains[seed];
+
+                seed++;
 
                Instantiate(currentTerrain, new Vector3(nextXMoldPosition, 0, nextZMoldPosition), Quaternion.identity);
                 
