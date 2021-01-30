@@ -47,12 +47,13 @@ public class ObjectsController : MonoBehaviour
     Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
     RaycastHit hit;
 
-    if (Physics.Raycast(ray, out hit, 2.0f))
+    if (Physics.Raycast(ray, out hit, 5.0f))
     {
-      // Debug.Log("Raycast!");
+      Debug.Log("Raycast!");
       if (hit.collider.tag == "object")
       {
-        // Debug.Log("collider");
+        Debug.Log("collider");
+        Debug.Log(hit.collider.name);
         switch (hit.collider.name)
         {
           case "smartphone":
