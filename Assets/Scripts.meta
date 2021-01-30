@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: 79767a12893d513428892c1078ea869f
+=======
+guid: efdbb810b9cfd65489741cf29919b4a6
+>>>>>>> sc
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
