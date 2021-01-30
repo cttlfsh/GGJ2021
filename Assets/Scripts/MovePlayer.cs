@@ -19,11 +19,11 @@ public class MovePlayer : MovePlayerBehavior
             return;
         }
 
-        transform.position += new Vector3(
-            Input.GetAxis("Horizontal"),
-            Input.GetAxis("Vertical"),
-            0
-        ) * Time.deltaTime * 5.0f;
+        // transform.position += new Vector3(
+        //     Input.GetAxis("Horizontal"),
+        //     Input.GetAxis("Vertical"),
+        //     0
+        // ) * Time.deltaTime * 5.0f;
 
         networkObject.position = transform.position;
     }
