@@ -3983,7 +3983,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!64 &1481864447
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -4068,9 +4068,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 1481864446}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f995e74bddca404eb8e78416bea1ac4, type: 3}
+  m_Script: {fileID: 11500000, guid: dc90673690db960459254ee1c1a4537e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rows: 3
+  columns: 3
+  terrains:
+  - {fileID: 4175635912912103654, guid: f04e45cd217d13a48bdb9c7bf0d0eb3a, type: 3}
+  island: {fileID: 0}
+  mold: {fileID: 0}
 --- !u!1001 &1499096194
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5843,72 +5849,3 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9bb03150dc9d39a4e9760c61e7d01bcc, type: 3}
---- !u!1001 &1625690546420854516
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 1625690546234834552, guid: 7b26ed148d7d34948a4bf0df5a14bbab,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1625690546234834552, guid: 7b26ed148d7d34948a4bf0df5a14bbab,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1625690546234834552, guid: 7b26ed148d7d34948a4bf0df5a14bbab,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1625690546234834552, guid: 7b26ed148d7d34948a4bf0df5a14bbab,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1625690546234834552, guid: 7b26ed148d7d34948a4bf0df5a14bbab,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1625690546234834552, guid: 7b26ed148d7d34948a4bf0df5a14bbab,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1625690546234834552, guid: 7b26ed148d7d34948a4bf0df5a14bbab,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1625690546234834552, guid: 7b26ed148d7d34948a4bf0df5a14bbab,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1625690546234834552, guid: 7b26ed148d7d34948a4bf0df5a14bbab,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1625690546234834552, guid: 7b26ed148d7d34948a4bf0df5a14bbab,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1625690546234834552, guid: 7b26ed148d7d34948a4bf0df5a14bbab,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1625690546234834559, guid: 7b26ed148d7d34948a4bf0df5a14bbab,
-        type: 3}
-      propertyPath: m_Name
-      value: RanchWorldContainer
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 7b26ed148d7d34948a4bf0df5a14bbab, type: 3}
