@@ -81,9 +81,10 @@ namespace UnityStandardAssets.Characters.ThirdPerson
     #endif
                 Debug.Log("Old:" + oldPosition.ToString());
                 m_Character.Move(m_Move, crouch, m_Jump);
-                m_Jump = false;
 
-                networkObject.SendRpc(RPC_MOVE, Receivers.AllBuffered, transform.position, transform.rotation);
+                // networkObject.SendRpc(RPC_MOVE, Receivers.AllBuffered, transform.position, transform.rotation);
+                networkObject.SendRpc(RPC_MOVE, Receivers.AllBuffered, m_Move, crouch, m_Jump);
+                m_Jump = false;
             }
 
         }
@@ -91,10 +92,15 @@ namespace UnityStandardAssets.Characters.ThirdPerson
         public override void Move(RpcArgs args)
         {
             if(amIServer != networkObject.IsServer){
-                Vector3 posDif = args.GetNext<Vector3>();
-                Quaternion rotDif = args.GetNext<Quaternion>();
-                transform.position = posDif;
-                transform.rotation = rotDif;
+                // Vector3 posDif = args.GetNext<Vector3>();
+                // Quaternion rotDif = args.GetNext<Quaternion>();
+                // transform.position = posDif;
+                // transform.rotation = rotDif;
+                // GetComponent<Animator>().set
+                Vector3 m_Move = args.GetNext<Vector3>();
+                bool crouch = args.GetNext<bool>();
+                bool m_Jump = args.GetNext<bool>();
+                m_Character.Move(m_Move, crouch, m_Jump);
             }
         }
     }
