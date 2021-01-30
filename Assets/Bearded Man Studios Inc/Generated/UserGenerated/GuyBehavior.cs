@@ -4,13 +4,13 @@ using UnityEngine;
 
 namespace BeardedManStudios.Forge.Networking.Generated
 {
-	[GeneratedRPC("{\"types\":[[\"bool\"]]")]
-	[GeneratedRPCVariableNames("{\"types\":[[\"crouch\"]]")]
-	public abstract partial class MovePlayerClientBehavior : NetworkBehavior
+	[GeneratedRPC("{\"types\":[[]]")]
+	[GeneratedRPCVariableNames("{\"types\":[[]]")]
+	public abstract partial class GuyBehavior : NetworkBehavior
 	{
-		public const byte RPC_MOVE_CLIENT = 0 + 5;
+		public const byte RPC_MOVE_GUY = 0 + 5;
 		
-		public MovePlayerClientNetworkObject networkObject = null;
+		public GuyNetworkObject networkObject = null;
 
 		public override void Initialize(NetworkObject obj)
 		{
@@ -18,11 +18,11 @@ namespace BeardedManStudios.Forge.Networking.Generated
 			if (networkObject != null && networkObject.AttachedBehavior != null)
 				return;
 			
-			networkObject = (MovePlayerClientNetworkObject)obj;
+			networkObject = (GuyNetworkObject)obj;
 			networkObject.AttachedBehavior = this;
 
 			base.SetupHelperRpcs(networkObject);
-			networkObject.RegisterRpc("MoveClient", MoveClient, typeof(bool));
+			networkObject.RegisterRpc("MoveGuy", MoveGuy);
 
 			networkObject.onDestroy += DestroyGameObject;
 
@@ -80,7 +80,7 @@ namespace BeardedManStudios.Forge.Networking.Generated
 
 		public override void Initialize(NetWorker networker, byte[] metadata = null)
 		{
-			Initialize(new MovePlayerClientNetworkObject(networker, createCode: TempAttachCode, metadata: metadata));
+			Initialize(new GuyNetworkObject(networker, createCode: TempAttachCode, metadata: metadata));
 		}
 
 		private void DestroyGameObject(NetWorker sender)
@@ -91,7 +91,7 @@ namespace BeardedManStudios.Forge.Networking.Generated
 
 		public override NetworkObject CreateNetworkObject(NetWorker networker, int createCode, byte[] metadata = null)
 		{
-			return new MovePlayerClientNetworkObject(networker, this, createCode, metadata);
+			return new GuyNetworkObject(networker, this, createCode, metadata);
 		}
 
 		protected override void InitializedTransform()
@@ -101,9 +101,8 @@ namespace BeardedManStudios.Forge.Networking.Generated
 
 		/// <summary>
 		/// Arguments:
-		/// bool crouch
 		/// </summary>
-		public abstract void MoveClient(RpcArgs args);
+		public abstract void MoveGuy(RpcArgs args);
 
 		// DO NOT TOUCH, THIS GETS GENERATED PLEASE EXTEND THIS CLASS IF YOU WISH TO HAVE CUSTOM CODE ADDITIONS
 	}
