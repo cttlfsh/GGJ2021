@@ -200,10 +200,16 @@ public class ObjectsController : MonoBehaviour
       smartphone.transform.rotation = pickedUpSmartphonePrefab.transform.rotation;
       smartphone.SetActive(true);
 
-    }
-    if (Input.GetKey(KeyCode.Alpha2)){
+    } 
+    else if (Input.GetKey(KeyCode.Alpha2))
+    {
       // useObject("flareGun");
       isGunInHand = true;
+      isPhoneInHand = false;
+    } 
+    else if (Input.GetKey(KeyCode.Alpha3))
+    {
+      isGunInHand = false;
       isPhoneInHand = false;
     }
   }
@@ -222,6 +228,10 @@ public class ObjectsController : MonoBehaviour
       isFunctionKeyPressed = true;
       keyPressedTimer = 1f;
       pickUp();
+    }
+    if (isPhoneInHand)
+    {
+
     }
   }
   public void LateUpdate()
