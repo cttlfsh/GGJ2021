@@ -1,44 +1,56 @@
-﻿﻿using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class ProceduralGenerator : MonoBehaviour {
-    
+
     public int rows;
     public int columns;
 
-    int waterThickness = 5;
-
     public GameObject[] terrains;
-    public GameObject[] waters;
+    public GameObject island;
+    public GameObject mold;
+    private float nextXMoldPosition;
+    private float nextZMoldPosition;
 
-    private float nextXPosition = 0.0f;
-    private float nextZPosition = 0.0f;
+    void Awake() {
+        // Basta la X dato che la tile e' quadrata
+        float tileSize = mold.GetComponent<Renderer>().bounds.size.x;
 
-    void Start() {
+        float sizeX = tileSize * rows;
+        float sizeZ = tileSize * columns;
 
-        int finalX = rows + waterThickness * 2;
-        int finalZ = columns + waterThickness * 2;
+        float centerX = (tileSize * (rows - 1)) / 2;
+        float centerZ = (tileSize * (columns - 1)) / 2;
 
-        for (int i = 0; i < finalX; i++) {
-            for (int j = 0; j < finalZ; j++) {
+        island.SetActive(true);
+        island.transform.position = new Vector3(centerX, 0, centerZ);
 
-                GameObject currentTerrain;
+        // Instantiate(island, new Vector3(centerX, 0, centerZ), Quaternion.identity);
+        float islandSize = island.GetComponent<Renderer>().bounds.size.x;
 
-                if(i < waterThickness || j < waterThickness || i > finalX - waterThickness || j > finalZ - waterThickness) {
-                    int w = Random.Range(0, waters.Length);
-                    currentTerrain = waters[w];
-                    Instantiate(currentTerrain, new Vector3(i*nextXPosition, 0, j*nextZPosition), Quaternion.identity);
-                } else {
-                    int r = Random.Range(0, terrains.Length);
-                    currentTerrain = terrains[r];
-                    Debug.Log(currentTerrain.GetComponent<Renderer>().bounds.size.x);
-                    Instantiate(currentTerrain, new Vector3(i*nextXPosition, 3.5f, j*nextZPosition), Quaternion.Euler(0, Random.Range(0,4) * 90.0f, 0));
-                }
-                nextXPosition = currentTerrain.GetComponent<Renderer>().bounds.size.x;
-                nextZPosition = currentTerrain.GetComponent<Renderer>().bounds.size.z;
+        float scaleFactor = (islandSize / tileSize)  * 12f;
+
+        island.transform.localScale += new Vector3(scaleFactor, scaleFactor, scaleFactor);
+
+
+       for (int i = 0; i < rows; i++)
+        {
+            for (int j = 0; j < columns; j++)
+            {   
+                nextXMoldPosition = i*mold.GetComponent<Renderer>().bounds.size.x;
+                nextZMoldPosition = j*mold.GetComponent<Renderer>().bounds.size.z;
+
+                int r = Random.Range(0, terrains.Length);
+                GameObject currentTerrain = terrains[r];
+
+               Instantiate(currentTerrain, new Vector3(nextXMoldPosition, 0, nextZMoldPosition), Quaternion.identity);
+                
             }
         }
-        
+
+        // maxClouds = Random.Range(500, 1000);
+        // generateClouds();
+
     }
 }
