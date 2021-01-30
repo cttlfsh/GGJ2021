@@ -8,13 +8,13 @@ namespace UnityStandardAssets.Effects
     {
         private float m_Rnd;
         private bool m_Burning = true;
-        private Light m_Light;
+        public Light m_Light;
 
 
         private void Start()
         {
             m_Rnd = Random.value*100;
-            m_Light = GetComponent<Light>();
+            //m_Light = GetComponent<Light>();
         }
 
 
