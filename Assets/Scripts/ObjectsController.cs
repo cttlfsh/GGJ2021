@@ -221,16 +221,13 @@ public class ObjectsController : MonoBehaviour
     {
       isFunctionKeyPressed = true;
       keyPressedTimer = 1f;
-      // Debug.Log("F pressed");
       pickUp();
-      // useObject("walkieTalkie"); 
     }
   }
   public void LateUpdate()
   {
     if  ((Input.GetKey(KeyCode.E)) && (isPhoneInHand) && !isFunctionKeyPressed)
     {
-      Debug.Log("press");
       isFunctionKeyPressed = true;
       keyPressedTimer = 1f;
       StartCoroutine(takePic());

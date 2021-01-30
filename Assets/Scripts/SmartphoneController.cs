@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Unity.Collections;
 using UnityEngine;
 
 public class SmartphoneController : MonoBehaviour
@@ -30,7 +31,7 @@ public class SmartphoneController : MonoBehaviour
       Texture2D texture = ScreenCapture.CaptureScreenshotAsTexture();
       privateGallery[privateIndex] = texture;
       privateIndex++;
-      batteryLevel -= 100/3;
+      // batteryLevel -= 100/3;
       sendPic();
     }
   }
@@ -39,15 +40,20 @@ public class SmartphoneController : MonoBehaviour
   {
     if (theOtherSmartphone != null)
     {
-      theOtherSmartphone.GetComponent<SmartphoneController>().receivePic(privateGallery[privateIndex-1]);
+      NativeArray<byte> toSend = privateGallery[privateIndex-1].GetRawTextureData<byte>();
+      byte[] bytes = new byte[toSend.Length];
+      toSend.CopyTo(bytes);
+      theOtherSmartphone.GetComponent<SmartphoneController>().receivePic(bytes);
     }
   }
 
-  public void receivePic(Texture2D pic)
+  public void receivePic(byte[] pic)
   {
     if (receivedIndex < 3)
     {
-      receivedGallery[receivedIndex] = pic;
+      Texture2D convertedPic = new Texture2D(Screen.width, Screen.height, TextureFormat.RGBA32, false);
+      convertedPic.LoadRawTextureData(pic);
+      receivedGallery[receivedIndex] = convertedPic;
       receivedIndex++;
     }
   }
