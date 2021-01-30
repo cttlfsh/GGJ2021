@@ -4,6 +4,9 @@
 TagManager:
   serializedVersion: 2
   tags:
+  - object
+  - compass_reference
+  tags:
   - Fire
   - Terrain
   - Island
@@ -16,6 +19,8 @@ TagManager:
   - UI
   - 
   - 
+  - Minimap
+  - Compass
   - Terrain
   - 
   - 
