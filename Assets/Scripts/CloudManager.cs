@@ -5,6 +5,7 @@ using UnityEngine;
 public class CloudManager : MonoBehaviour {
 
     public GameObject[] clouds;
+    public GameObject parentObject;
 
     private GameObject island;
     private int maxClouds;
@@ -31,6 +32,7 @@ public class CloudManager : MonoBehaviour {
             GameObject cloud = Instantiate(clouds[cloudType], new Vector3(x, y, z), Quaternion.identity);
             int scaleFactor = Random.Range(0,2);
             cloud.transform.localScale += new Vector3(scaleFactor, scaleFactor, scaleFactor);
+            cloud.transform.parent = parentObject.transform;
         }
     }
 

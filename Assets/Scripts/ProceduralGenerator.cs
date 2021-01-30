@@ -9,7 +9,9 @@ public class ProceduralGenerator : MonoBehaviour {
 
     public GameObject[] terrains;
     public GameObject island;
+    public GameObject beach;
     public GameObject mold;
+    public GameObject parentObject;
     private float nextXMoldPosition;
     private float nextZMoldPosition;
 
@@ -23,20 +25,20 @@ public class ProceduralGenerator : MonoBehaviour {
         float centerX = (tileSize * (rows - 1)) / 2;
         float centerZ = (tileSize * (columns - 1)) / 2;
 
+        // set island size
         island.SetActive(true);
         island.transform.position = new Vector3(centerX, 0, centerZ);
-
-        // Instantiate(island, new Vector3(centerX, 0, centerZ), Quaternion.identity);
         float islandSize = island.GetComponent<Renderer>().bounds.size.x;
-
         float scaleFactor = (islandSize / tileSize)  * 12f;
-
         island.transform.localScale += new Vector3(scaleFactor, scaleFactor, scaleFactor);
+        // set beach size
+        beach.transform.position = new Vector3(centerX, -1.8f, centerZ);
+        beach.transform.Rotate(0, 60, 0); 
+        beach.transform.localScale = new Vector3(scaleFactor / 1.5f, 1, scaleFactor / 1.5f);
 
-
+        // spawn tiles
         int seed = 0;
-
-       for (int i = 0; i < rows; i++)
+        for (int i = 0; i < rows; i++)
         {
             for (int j = 0; j < columns; j++)
             {   
@@ -48,13 +50,9 @@ public class ProceduralGenerator : MonoBehaviour {
 
                 seed++;
 
-               Instantiate(currentTerrain, new Vector3(nextXMoldPosition, 0, nextZMoldPosition), Quaternion.identity);
-                
+                var singleTile = Instantiate(currentTerrain, new Vector3(nextXMoldPosition, 0, nextZMoldPosition), Quaternion.identity);
+                singleTile.transform.parent = parentObject.transform;
             }
         }
-
-        // maxClouds = Random.Range(500, 1000);
-        // generateClouds();
-
     }
 }
