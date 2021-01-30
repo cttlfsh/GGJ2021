@@ -24,7 +24,7 @@ namespace BeardedManStudios.Forge.Networking.UnityEditor
 		private const string EDITOR_GITHUB_LINK = "https://github.com/BeardedManStudios/ForgeNetworkingRemastered";
 		private const string EDITOR_DISCORD_LINK = "https://discord.gg/yzZwEYm";
 		private const string EDITOR_FORUM_LINK = "https://forum.unity3d.com/threads/no-ccu-limit-forge-networking-superpowered-fully-cross-platform.286900/";
-		private string Version { get { return Resources.Load<TextAsset>(ForgeNetworkingEditor.EDITOR_RESOURCES_DIR + "/version").text; } }
+		//  private string Version { get { return Resources.Load<TextAsset>(ForgeNetworkingEditor.EDITOR_RESOURCES_DIR + "/version").text; } }
 
 		//private static bool ProVersion = false;
 		private static bool IgnoreEditorStartup = false;
@@ -124,7 +124,7 @@ namespace BeardedManStudios.Forge.Networking.UnityEditor
 				EditorPrefs.SetBool(EDITOR_PREF_IGNORE, IgnoreEditorStartup);
 			}
 			GUILayout.FlexibleSpace();
-			GUILayout.Label(string.Format("Version {0}", Version), EditorStyles.boldLabel);
+			// GUILayout.Label(string.Format("Version {0}", Version), EditorStyles.boldLabel);
 			GUILayout.EndHorizontal();
 		}
 	}
