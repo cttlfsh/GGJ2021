@@ -4,8 +4,8 @@ using UnityEngine;
 
 namespace BeardedManStudios.Forge.Networking.Generated
 {
-	[GeneratedRPC("{\"types\":[[]]")]
-	[GeneratedRPCVariableNames("{\"types\":[[]]")]
+	[GeneratedRPC("{\"types\":[[\"bool\"]]")]
+	[GeneratedRPCVariableNames("{\"types\":[[\"crouch\"]]")]
 	public abstract partial class MovePlayerClientBehavior : NetworkBehavior
 	{
 		public const byte RPC_MOVE_CLIENT = 0 + 5;
@@ -22,7 +22,7 @@ namespace BeardedManStudios.Forge.Networking.Generated
 			networkObject.AttachedBehavior = this;
 
 			base.SetupHelperRpcs(networkObject);
-			networkObject.RegisterRpc("MoveClient", MoveClient);
+			networkObject.RegisterRpc("MoveClient", MoveClient, typeof(bool));
 
 			networkObject.onDestroy += DestroyGameObject;
 
@@ -101,6 +101,7 @@ namespace BeardedManStudios.Forge.Networking.Generated
 
 		/// <summary>
 		/// Arguments:
+		/// bool crouch
 		/// </summary>
 		public abstract void MoveClient(RpcArgs args);
 

@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
 using BeardedManStudios.Forge.Networking.Generated;
+using BeardedManStudios.Forge.Networking;
 
 namespace UnityStandardAssets.Characters.ThirdPerson
 {
@@ -42,16 +43,18 @@ namespace UnityStandardAssets.Characters.ThirdPerson
             }
         }
 
+        public override void MoveClient(RpcArgs args)
+        {
+            // pass all parameters to the character control script
+            bool crouch = args.GetNext<bool>();
+            m_Character.Move(m_Move, crouch, m_Jump);
+            m_Jump = false;
+        }
+
 
         // Fixed update is called in sync with physics
         private void FixedUpdate()
         {
-            if(networkObject.IsServer){ 
-                Debug.Log(networkObject.position_client.x);
-                transform.position = networkObject.position_client;
-                return;
-            }
-
             // read inputs
             float h = CrossPlatformInputManager.GetAxis("Horizontal");
             float v = CrossPlatformInputManager.GetAxis("Vertical");
@@ -74,12 +77,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 	        if (Input.GetKey(KeyCode.LeftShift)) m_Move *= 0.5f;
 #endif
 
-            // pass all parameters to the character control script
-            m_Character.Move(m_Move, crouch, m_Jump);
-            m_Jump = false;
-            
-            Debug.Log("Il client " + networkObject.MyPlayerId.ToString() + "sta settando la posizione " + transform.position.x);
-            networkObject.position_client = transform.position;
+            networkObject.SendRpc(RPC_MOVE_CLIENT, Receivers.All, crouch);
         }
     }
 }
