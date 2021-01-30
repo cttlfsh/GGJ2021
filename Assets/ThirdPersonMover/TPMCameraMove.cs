@@ -19,6 +19,15 @@ public class TPMCameraMove : MonoBehaviour
 
 	void Start()
 	{
+	}
+
+	public void setServer(bool val){
+		Debug.Log("KUPER STRONZO");
+		isServer = val;
+	}
+
+	void LateUpdate()
+	{
 		if (isServer)
 		{
 			lookAt = lookAtServer;
@@ -27,10 +36,6 @@ public class TPMCameraMove : MonoBehaviour
 		{
 			lookAt = lookAtClient;
 		}
-	}
-
-	void LateUpdate()
-	{
 		currentX += Input.GetAxis("Mouse X") * sensivity * Time.deltaTime;
 		currentY += Input.GetAxis("Mouse Y") * sensivity * Time.deltaTime *(-1);
 
