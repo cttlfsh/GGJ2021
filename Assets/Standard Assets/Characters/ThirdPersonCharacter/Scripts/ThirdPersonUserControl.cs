@@ -1,7 +1,6 @@
 using System;
 using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
-// using BeardedManStudios.Forge.Networking.Generated;
 
 namespace UnityStandardAssets.Characters.ThirdPerson
 {
@@ -46,11 +45,6 @@ namespace UnityStandardAssets.Characters.ThirdPerson
         // Fixed update is called in sync with physics
         private void FixedUpdate()
         {
-            // if(!networkObject.IsServer){
-            //     transform.position = networkObject.position;
-            //     return;
-            // }
-
             // read inputs
             float h = CrossPlatformInputManager.GetAxis("Horizontal");
             float v = CrossPlatformInputManager.GetAxis("Vertical");
@@ -76,8 +70,6 @@ namespace UnityStandardAssets.Characters.ThirdPerson
             // pass all parameters to the character control script
             m_Character.Move(m_Move, crouch, m_Jump);
             m_Jump = false;
-            
-            // networkObject.position = transform.position;
         }
     }
 }

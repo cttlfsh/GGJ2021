@@ -8,7 +8,7 @@ namespace UnityStandardAssets.Effects
     {
         private float m_Rnd;
         private bool m_Burning = true;
-        private Light m_Light;
+        public Light m_Light;
 
 
         private void Start()
