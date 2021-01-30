@@ -22,7 +22,9 @@ public class ObjectsController : MonoBehaviour
   public GameObject pickedUpFlareGunPrefab;
   private bool isPhoneInHand;
   private bool isGunInHand;
+  private bool isFunctionKeyPressed;
 
+  private float keyPressedTimer;
   // private Collider coll;
 
   // Start is called before the first frame update
@@ -31,6 +33,8 @@ public class ObjectsController : MonoBehaviour
     // coll = GetComponent<Collider>();
     isPhoneInHand = false;
     isGunInHand = false;
+    isFunctionKeyPressed = false;
+    keyPressedTimer = 1f;
   }
   void pickUpFromScene(ref GameObject element, GameObject sceneObject)
   {
@@ -43,7 +47,7 @@ public class ObjectsController : MonoBehaviour
     Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
     RaycastHit hit;
 
-    if (Physics.Raycast(ray, out hit, 1.0f))
+    if (Physics.Raycast(ray, out hit, 2.0f))
     {
       // Debug.Log("Raycast!");
       if (hit.collider.tag == "object")
@@ -187,6 +191,15 @@ public class ObjectsController : MonoBehaviour
       // useObject("smartphone");
       isGunInHand = false;
       isPhoneInHand = true;
+      // Debug.Log("In");
+      // Debug.Log(smartphone.transform.position);
+      // Debug.Log("Out");
+      // Debug.Log(pickedUpSmartphonePrefab.transform.position);
+      smartphone.transform.SetParent(transform);
+      smartphone.transform.position = pickedUpSmartphonePrefab.transform.position;
+      smartphone.transform.rotation = pickedUpSmartphonePrefab.transform.rotation;
+      smartphone.SetActive(true);
+
     }
     if (Input.GetKey(KeyCode.Alpha2)){
       // useObject("flareGun");
@@ -198,22 +211,30 @@ public class ObjectsController : MonoBehaviour
   // Update is called once per frame
   void Update()
   {
+    keyPressedTimer -= Time.deltaTime;
+
+    if (keyPressedTimer < 0)
+      isFunctionKeyPressed = false;
+
     switchItem();
-    if (Input.GetKey(KeyCode.F)) 
+    if (Input.GetKey(KeyCode.F) && !isFunctionKeyPressed) 
     {
+      isFunctionKeyPressed = true;
+      keyPressedTimer = 1f;
       // Debug.Log("F pressed");
       pickUp();
       // useObject("walkieTalkie"); 
-      useObject("flareGun");
     }
-    
-    
   }
   public void LateUpdate()
   {
-    if  ((Input.GetKey(KeyCode.F)) && (isPhoneInHand))
+    if  ((Input.GetKey(KeyCode.E)) && (isPhoneInHand) && !isFunctionKeyPressed)
     {
+      Debug.Log("press");
+      isFunctionKeyPressed = true;
+      keyPressedTimer = 1f;
       StartCoroutine(takePic());
+      // useObject("flareGun");
     }
   }
   

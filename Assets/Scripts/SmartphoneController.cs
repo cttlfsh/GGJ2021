@@ -23,6 +23,7 @@ public class SmartphoneController : MonoBehaviour
   // use ScreenCapture CaptureScreenshotAsTexture or CaptureScreenshotAsRenderTexture
   public IEnumerator takePic()
   {
+    Debug.Log("takePic");
     if (privateIndex < 3)
     {
       yield return new WaitForEndOfFrame();
@@ -30,7 +31,7 @@ public class SmartphoneController : MonoBehaviour
       privateGallery[privateIndex] = texture;
       privateIndex++;
       batteryLevel -= 100/3;
-
+      sendPic();
     }
   }
 
