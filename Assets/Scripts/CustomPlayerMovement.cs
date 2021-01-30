@@ -16,6 +16,8 @@ namespace UnityStandardAssets.Characters.ThirdPerson
         private Vector3 m_Move;
         private bool m_Jump;                      // the world-relative desired move direction, calculated from the camForward and user input.
 
+        public Vector3 oldPosition;
+
         
         private void Start()
         {
@@ -33,16 +35,23 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 
             // get the third person character ( this should never be null due to require component )
             m_Character = GetComponent<ThirdPersonCharacter>();
+            oldPosition = transform.position;
         }
 
 
         private void Update()
         {
-            if (!m_Jump)
-            {
-                m_Jump = CrossPlatformInputManager.GetButtonDown("Jump");
+            if(amIServer == networkObject.IsServer){
+                if (!m_Jump)
+                {
+                    m_Jump = CrossPlatformInputManager.GetButtonDown("Jump");
+                }
             }
         }
+
+        // private void LateUpdate(){
+        //     oldPosition = transform.position;
+        // }
 
 
         // Fixed update is called in sync with physics
@@ -70,20 +79,23 @@ namespace UnityStandardAssets.Characters.ThirdPerson
                 // walk speed multiplier
                 if (Input.GetKey(KeyCode.LeftShift)) m_Move *= 0.5f;
     #endif
-
+                Debug.Log("Old:" + oldPosition.ToString());
                 m_Character.Move(m_Move, crouch, m_Jump);
                 m_Jump = false;
 
-                if(Input.GetKeyDown(KeyCode.Space)){
-                    networkObject.SendRpc(RPC_MOVE, Receivers.AllBuffered);
-                }
+                networkObject.SendRpc(RPC_MOVE, Receivers.AllBuffered, transform.position, transform.rotation);
             }
 
         }
 
         public override void Move(RpcArgs args)
         {
-            transform.position += Vector3.up;
+            if(amIServer != networkObject.IsServer){
+                Vector3 posDif = args.GetNext<Vector3>();
+                Quaternion rotDif = args.GetNext<Quaternion>();
+                transform.position = posDif;
+                transform.rotation = rotDif;
+            }
         }
     }
 }
