@@ -22,7 +22,6 @@ public class TPMCameraMove : MonoBehaviour
 	}
 
 	public void setServer(bool val){
-		Debug.Log("KUPER STRONZO");
 		isServer = val;
 	}
 

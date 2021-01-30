@@ -884,7 +884,7 @@ PrefabInstance:
     - target: {fileID: 9147172918370155310, guid: 9fed08044de4b014c9ec09bb2f893dd7,
         type: 3}
       propertyPath: m_GroundCheckDistance
-      value: 3
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 9147172918370155310, guid: 9fed08044de4b014c9ec09bb2f893dd7,
         type: 3}
@@ -964,7 +964,8 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Material
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 13400000, guid: c2815a7ab32e42c4bb42f59caacb8ec1,
+        type: 2}
     - target: {fileID: 6415534220678241020, guid: c5132b5aa590e414b9268f2e1c9856ac,
         type: 3}
       propertyPath: m_GroundCheckDistance

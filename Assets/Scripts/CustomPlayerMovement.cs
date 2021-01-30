@@ -83,9 +83,8 @@ namespace UnityStandardAssets.Characters.ThirdPerson
                 }
     #if !MOBILE_INPUT
                 // walk speed multiplier
-                if (Input.GetKey(KeyCode.LeftShift)) m_Move *= 0.5f;
+                if (Input.GetKey(KeyCode.LeftShift)) m_Move *= 2.0f;
     #endif
-                Debug.Log("Old:" + oldPosition.ToString());
                 m_Character.Move(m_Move, crouch, m_Jump);
 
                 // networkObject.SendRpc(RPC_MOVE, Receivers.AllBuffered, transform.position, transform.rotation);
