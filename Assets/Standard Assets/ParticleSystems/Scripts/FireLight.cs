@@ -14,7 +14,7 @@ namespace UnityStandardAssets.Effects
         private void Start()
         {
             m_Rnd = Random.value*100;
-            //m_Light = GetComponent<Light>();
+            m_Light = GetComponent<Light>();
         }
 
 
