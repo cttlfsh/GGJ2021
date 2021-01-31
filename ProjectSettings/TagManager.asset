@@ -7,6 +7,7 @@ TagManager:
   - Fire
   - Terrain
   - Island
+  - Dungeon
   layers:
   - Default
   - TransparentFX
