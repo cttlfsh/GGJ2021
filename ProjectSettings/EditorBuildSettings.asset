@@ -15,6 +15,6 @@ EditorBuildSettings:
     path: Assets/Scenes/ng.unity
     guid: 6d37259a2f21c0c47b78c838f5e3ca3a
   - enabled: 0
-    path: Assets/Scenes/Game.unity
-    guid: 9fc0d4010bbf28b4594072e72b8655ab
+    path: Assets/Scenes/TestProceduralGeneration.unity
+    guid: 1bcf7293751eee04fa5d0d43edc90310
   m_configObjects: {}
