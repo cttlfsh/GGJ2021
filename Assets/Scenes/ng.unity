@@ -144,6 +144,8 @@ MonoBehaviour:
     type: 3}
   pickedUpFlareGunPrefab: {fileID: 0}
   phoneImage: {fileID: 327670512}
+  mapImage: {fileID: 0}
+  compassImage: {fileID: 0}
 --- !u!4 &169123734 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 514790545177089381, guid: c5132b5aa590e414b9268f2e1c9856ac,

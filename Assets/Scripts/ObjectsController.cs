@@ -78,68 +78,68 @@ public class ObjectsController : MonoBehaviour
     }
   }
 
-  bool pickUp()
+  public bool pickUp(Transform transform)
   {
-    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-    RaycastHit hit;
+    // Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+    // RaycastHit hit;
 
-    if (Physics.Raycast(ray, out hit, 5.0f))
+    // if (Physics.Raycast(ray, out hit, 5.0f))
+    // {
+    //   Debug.Log("Raycast!");
+    if (transform.gameObject.tag == "object")
     {
-      Debug.Log("Raycast!");
-      if (hit.collider.tag == "object")
+      Debug.Log("transform");
+      Debug.Log(transform.gameObject.name);
+      switch (transform.gameObject.name)
       {
-        Debug.Log("collider");
-        Debug.Log(hit.collider.name);
-        switch (hit.collider.name)
-        {
-          case "smartphone":
-            Debug.Log("Smartphone picked up!");
-            isPickedUpSmartphone = true;
-            pickUpFromScene(ref smartphone, hit.collider.gameObject);
-            break;
-          case "smartphone1":
-            Debug.Log("Smartphone picked up!");
-            isPickedUpSmartphone = true;
-            pickUpFromScene(ref smartphone, hit.collider.gameObject);
-            break;
-          case "minimap":
-            isPickedUpMap = true;
-            useObject("map");
-            pickUpFromScene(ref map, hit.collider.gameObject);
-            break;
-          case "flareGun":
-            Debug.Log("picking up gun");
-            isPickedUpFlareGun = true;
-            pickUpFromScene(ref flareGun, hit.collider.gameObject);
-            break;
-          case "compass":
-            isPickedUpCompass = true;
-            useObject("compass");
-            pickUpFromScene(ref compass, hit.collider.gameObject);
-            compass.transform.position = transform.position;
-            compass.GetComponent<CompassController>().owned();
-            compass.SetActive(true);
-
-            break;
-          case "walkieTalkie":
-            isPickedUpWalkieTalkie = true;
-            useObject("walkieTalkie");  
-            pickUpFromScene(ref walkieTalkie, hit.collider.gameObject);
-            break;
-          case "beacon":
-            isPickedUpBeacon = true;
-            pickUpFromScene(ref beacon, hit.collider.gameObject);
-            beacon.SetActive(true);
-            beacon.GetComponent<MeshRenderer>().enabled = false;
-            beacon.GetComponent<BeaconController>().SetOwned();
-            beacon.GetComponent<BeaconController>().SetOwner(gameObject);
-
-            break;
-          default:
+        case "smartphone":
+          Debug.Log("Smartphone picked up!");
+          isPickedUpSmartphone = true;
+          pickUpFromScene(ref smartphone, transform.gameObject);
           break;
-        }
-        return true;
+        case "smartphone1":
+          Debug.Log("Smartphone picked up!");
+          isPickedUpSmartphone = true;
+          pickUpFromScene(ref smartphone, transform.gameObject);
+          break;
+        case "minimap":
+          isPickedUpMap = true;
+          useObject("map");
+          pickUpFromScene(ref map, transform.gameObject);
+          break;
+        case "flareGun":
+          Debug.Log("picking up gun");
+          isPickedUpFlareGun = true;
+          pickUpFromScene(ref flareGun, transform.gameObject);
+          break;
+        case "compass":
+          isPickedUpCompass = true;
+          useObject("compass");
+          pickUpFromScene(ref compass, transform.gameObject);
+          compass.transform.position = transform.position;
+          compass.GetComponent<CompassController>().owned();
+          compass.SetActive(true);
+
+          break;
+        case "walkieTalkie":
+          isPickedUpWalkieTalkie = true;
+          useObject("walkieTalkie");  
+          pickUpFromScene(ref walkieTalkie, transform.gameObject);
+          break;
+        case "beacon":
+          isPickedUpBeacon = true;
+          pickUpFromScene(ref beacon, transform.gameObject);
+          beacon.SetActive(true);
+          beacon.GetComponent<MeshRenderer>().enabled = false;
+          beacon.GetComponent<BeaconController>().SetOwned();
+          beacon.GetComponent<BeaconController>().SetOwner(gameObject);
+
+          break;
+        default:
+        break;
       }
+      return true;
+      
     }
     return false;
 
@@ -271,6 +271,17 @@ public class ObjectsController : MonoBehaviour
     }
   }
 
+  // void OnTriggerEnter(Collider collider) {
+  //   if(collider.gameObject.tag == "object") {
+  //     if (Input.GetKey(KeyCode.F) && !isFunctionKeyPressed) 
+  //     {
+  //       isFunctionKeyPressed = true;
+  //       keyPressedTimer = 1f;
+  //       pickUp(collider);
+  //     }
+  //   }
+  // }
+
   // Update is called once per frame
   void Update()
   {
@@ -284,12 +295,12 @@ public class ObjectsController : MonoBehaviour
       wasShot = false;
     switchItem();
     
-    if (Input.GetKey(KeyCode.F) && !isFunctionKeyPressed) 
-    {
-      isFunctionKeyPressed = true;
-      keyPressedTimer = 1f;
-      pickUp();
-    }
+    // if (Input.GetKey(KeyCode.F) && !isFunctionKeyPressed) 
+    // {
+    //   isFunctionKeyPressed = true;
+    //   keyPressedTimer = 1f;
+    //   pickUp();
+    // }
     
     if (Input.GetKey(KeyCode.E) && isGunInHand && !wasShot)
     {
@@ -311,6 +322,11 @@ public class ObjectsController : MonoBehaviour
     {
       flareGun.transform.position = gunPosition;
       flareGun.transform.rotation = gunRotation;
+    }
+
+    if (isPickedUpSmartphone)
+    {
+      phoneImage.enabled = true;
     }
 
   }
