@@ -7,8 +7,13 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+using ServerStatusCheck;
+
 public class MultiplayerMenu : MonoBehaviour
 {
+
+	public GameObject serverCheck;
+
 	public InputField ipAddress = null;
 	public InputField portNumber = null;
 	public bool DontChangeSceneOnConnect = false;
@@ -34,6 +39,10 @@ public class MultiplayerMenu : MonoBehaviour
 	public bool getLocalNetworkConnections = false;
 
 	public bool useTCP = false;
+	public GameObject ipAddrUI;
+	public GameObject portUI;
+	public string newServer;
+	public string newPort;
 
 	private void Start()
 	{
@@ -66,6 +75,8 @@ public class MultiplayerMenu : MonoBehaviour
 	private void LocalServerLocated(NetWorker.BroadcastEndpoints endpoint, NetWorker sender)
 	{
 		Debug.Log("Found endpoint: " + endpoint.Address + ":" + endpoint.Port);
+		newServer = endpoint.Address;
+		newPort = endpoint.Port.ToString();
 	}
 
 	public void Connect()
@@ -135,6 +146,7 @@ public class MultiplayerMenu : MonoBehaviour
 
 	public void Host()
 	{
+		serverCheck.GetComponent<ServerCheck>().isServer = true;
 		if (useTCP)
 		{
 			server = new TCPServer(64);
@@ -161,6 +173,8 @@ public class MultiplayerMenu : MonoBehaviour
 
 	private void Update()
 	{
+		ipAddrUI.GetComponent<InputField>().text = newServer;
+		portUI.GetComponent<InputField>().text = newPort;
 		if (Input.GetKeyDown(KeyCode.H))
 			Host();
 		else if (Input.GetKeyDown(KeyCode.C))
@@ -176,6 +190,8 @@ public class MultiplayerMenu : MonoBehaviour
 	private void TestLocalServerFind(NetWorker.BroadcastEndpoints endpoint, NetWorker sender)
 	{
 		Debug.Log("Address: " + endpoint.Address + ", Port: " + endpoint.Port + ", Server? " + endpoint.IsServer);
+		newServer = endpoint.Address;
+		newPort = endpoint.Port.ToString();
 	}
 
 	public void Connected(NetWorker networker)
