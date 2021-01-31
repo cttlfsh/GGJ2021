@@ -66,7 +66,6 @@ public class ProceduralGenerator : MonoBehaviour {
                 singleTile.transform.parent = parentObject.transform;
             }
         }
-
         // FINISHED GENERATING MAP
         GameObject serverStatus = GameObject.Find("ServerStatus");
         Debug.Log("SERVER STATUS OBJECT: " + serverStatus + ". IS_SERVER: " + serverStatus.GetComponent<ServerCheck>().isServer);
@@ -82,7 +81,8 @@ public class ProceduralGenerator : MonoBehaviour {
             // Spawning MyGal
             string[] myGalSpawnPoints = {"SpawnMyGal1", "SpawnMyGal2"}; 
             myGal.transform.position = spawnTerrain.transform.position + spawnTerrain.transform.Find(myGalSpawnPoints[Random.Range(0, 2)]).localPosition;
-        } else {
+            GetComponent<SpawnPlayersManager>().myManPos = myMan.transform.position;
+            GetComponent<SpawnPlayersManager>().myGalPos = myGal.transform.position;
         }
 
     }

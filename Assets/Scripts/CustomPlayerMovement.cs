@@ -39,10 +39,6 @@ namespace UnityStandardAssets.Characters.ThirdPerson
             m_Character = GetComponent<ThirdPersonCharacter>();
             oldPosition = transform.position;
             
-            if (amIServer == networkObject.IsServer){
-                GameObject myGalReference = GameObject.Find("MyGal");
-                networkObject.SendRpc(RPC_SEND_INITIAL_POSITION, Receivers.AllBuffered, myGalReference.transform.position);
-            }
 
         }
 
