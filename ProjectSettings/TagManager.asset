@@ -4,9 +4,11 @@
 TagManager:
   serializedVersion: 2
   tags:
+  - object
+  - compass_reference
   - Fire
-  - Terrain
   - Island
+  - phoneImage
   - Dungeon
   layers:
   - Default
@@ -17,9 +19,9 @@ TagManager:
   - UI
   - 
   - 
+  - Player
+  - UIObject
   - Terrain
-  - 
-  - 
   - 
   - 
   - 
