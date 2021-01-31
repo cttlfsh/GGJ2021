@@ -10,6 +10,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
     public class CustomPlayerMovement : MovePlayerBehavior
     {
         public bool amIServer;
+        public bool amINetworkingServer;
         private ThirdPersonCharacter m_Character; // A reference to the ThirdPersonCharacter on the object
         private Transform m_Cam;                  // A reference to the main camera in the scenes transform
         private Vector3 m_CamForward;             // The current forward direction of the camera
@@ -37,6 +38,11 @@ namespace UnityStandardAssets.Characters.ThirdPerson
             // get the third person character ( this should never be null due to require component )
             m_Character = GetComponent<ThirdPersonCharacter>();
             oldPosition = transform.position;
+            
+            if (amIServer == networkObject.IsServer){
+                GameObject myGalReference = GameObject.Find("MyGal");
+                networkObject.SendRpc(RPC_SEND_INITIAL_POSITION, Receivers.AllBuffered, myGalReference.transform.position);
+            }
 
         }
 
@@ -59,7 +65,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
         // Fixed update is called in sync with physics
         private void FixedUpdate()
         {
-            
+
             if(amIServer == networkObject.IsServer){
 
                 Camera.main.GetComponent<TPMCameraMove>().setServer(amIServer);
@@ -106,6 +112,13 @@ namespace UnityStandardAssets.Characters.ThirdPerson
                 bool crouch = args.GetNext<bool>();
                 bool m_Jump = args.GetNext<bool>();
                 m_Character.Move(m_Move, crouch, m_Jump);
+            }
+        }
+
+        public override void SendInitialPosition(RpcArgs args){
+            if(amIServer != networkObject.IsServer){
+                Vector3 myGalInitialPosition = args.GetNext<Vector3>();
+                transform.position = myGalInitialPosition;
             }
         }
     }

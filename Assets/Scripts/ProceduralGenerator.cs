@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+using ServerStatusCheck;
+
 public class ProceduralGenerator : MonoBehaviour {
 
     public int rows;
     public int columns;
-
     public GameObject[] terrains;
     public GameObject island;
     public GameObject beach;
@@ -67,31 +68,31 @@ public class ProceduralGenerator : MonoBehaviour {
         }
 
         // FINISHED GENERATING MAP
-        // START SPAWNING DEI PERSONAGGI
-
+        GameObject serverStatus = GameObject.Find("ServerStatus");
+        Debug.Log("SERVER STATUS OBJECT: " + serverStatus + ". IS_SERVER: " + serverStatus.GetComponent<ServerCheck>().isServer);
+        myMan.SetActive(true);
+        myGal.SetActive(true);
         int r = Random.Range(0, terrains.Length);
         GameObject spawnTerrain = instantiatedTiles[r];
         Debug.Log(spawnTerrain);
-
-
-        if (Random.Range(0, 2) == 0){
-            Debug.Log("SPAWN 1: " + spawnTerrain.transform.Find("SpawnMyMan1"));
-            Debug.Log("TERRAIN: " + spawnTerrain.transform.position);
-            Debug.Log("OFFSET: " + spawnTerrain.transform.Find("SpawnMyMan1").position);
-            Debug.Log(spawnTerrain.transform.position + spawnTerrain.transform.Find("SpawnMyMan1").position);
-            // Transform playerSpawn = spawnTerrain.transform.Find("SpawnMyMan1");
-            myMan.transform.position = spawnTerrain.transform.position + spawnTerrain.transform.Find("SpawnMyMan1").localPosition;
+        if (serverStatus.GetComponent<ServerCheck>().isServer){
+            // Spawning MyMan
+            string[] myManSpawnPoints = {"SpawnMyMan1", "SpawnMyMan2"}; 
+            myMan.transform.position = spawnTerrain.transform.position + spawnTerrain.transform.Find(myManSpawnPoints[Random.Range(0, 2)]).localPosition;
+            // Spawning MyGal
+            string[] myGalSpawnPoints = {"SpawnMyGal1", "SpawnMyGal2"}; 
+            myGal.transform.position = spawnTerrain.transform.position + spawnTerrain.transform.Find(myGalSpawnPoints[Random.Range(0, 2)]).localPosition;
         } else {
-            Debug.Log("SPAWN 2: " + spawnTerrain.transform.Find("SpawnMyMan2"));
-            Debug.Log(spawnTerrain.transform.position + spawnTerrain.transform.Find("SpawnMyMan2").position);
-            // Transform playerSpawn = spawnTerrain.transform.transform.Find("SpawnMyMan2");
-            myMan.transform.position = spawnTerrain.transform.position + spawnTerrain.transform.Find("SpawnMyMan2").localPosition;
         }
-        myMan.SetActive(true);
 
+    }
 
-        // maxClouds = Random.Range(500, 1000);
-        // generateClouds();
+    void Start()
+    {
+    }
 
+    private void SpawnPlayer(GameObject player, GameObject terrain, string[] spawnPointNames){
+        player.transform.position = terrain.transform.position + terrain.transform.Find(spawnPointNames[Random.Range(0, 2)]).localPosition;
+        
     }
 }
