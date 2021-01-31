@@ -38,6 +38,9 @@ namespace UnityStandardAssets.Characters.ThirdPerson
             m_Character = GetComponent<ThirdPersonCharacter>();
             oldPosition = transform.position;
 
+            GetComponent<ObjectsController>().setServer(amIServer);
+
+
         }
 
 

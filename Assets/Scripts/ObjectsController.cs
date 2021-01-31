@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using BeardedManStudios.Forge.Networking.Generated;
+using BeardedManStudios.Forge.Networking;
 
-public class ObjectsController : MonoBehaviour
+public class ObjectsController : ObjectsControllerBehavior
 {
   private bool isPickedUpSmartphone;
   private bool isPickedUpCompass;
@@ -24,12 +26,17 @@ public class ObjectsController : MonoBehaviour
   public GameObject pickedUpSmartphonePrefab;
   public GameObject pickedUpFlareGunPrefab;
   public RawImage phoneImage;
+<<<<<<< Updated upstream
   public RawImage mapImage;
   public RawImage compassImage;
   private bool isPhoneInHand;
+=======
+  public bool isPhoneInHand;
+>>>>>>> Stashed changes
   private bool isGunInHand;
   private bool isFunctionKeyPressed;
   private bool wasShot;
+  private bool amIServer;
   
   private Vector3 gunPosition;
   private Quaternion gunRotation;
@@ -53,11 +60,19 @@ public class ObjectsController : MonoBehaviour
     gunPosition = new Vector3(transform.position.x + 0.2f, transform.position.y+0.6f, transform.position.z+ 0.1f);
     gunRotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y - 180, transform.rotation.z);
   }
+
+  public void setServer(bool flag){
+      amIServer = flag;
+  }
   void pickUpFromScene(ref GameObject element, GameObject sceneObject)
   {
     element = sceneObject;
+<<<<<<< Updated upstream
     sceneObject.SetActive(false);
     sceneObject.transform.SetParent(transform);
+=======
+    sceneObject.GetComponent<MeshRenderer>().enabled = false; // .SetActive(false);
+>>>>>>> Stashed changes
     // Destroy(sceneObject);
   }
 
@@ -91,14 +106,15 @@ public class ObjectsController : MonoBehaviour
       {
         Debug.Log("collider");
         Debug.Log(hit.collider.name);
+
         switch (hit.collider.name)
         {
-          case "smartphone":
+          case "smartphone_client":
             Debug.Log("Smartphone picked up!");
             isPickedUpSmartphone = true;
             pickUpFromScene(ref smartphone, hit.collider.gameObject);
             break;
-          case "smartphone1":
+          case "smartphone_server":
             Debug.Log("Smartphone picked up!");
             isPickedUpSmartphone = true;
             pickUpFromScene(ref smartphone, hit.collider.gameObject);
@@ -249,11 +265,37 @@ public class ObjectsController : MonoBehaviour
       smartphone.transform.SetParent(gameObject.transform);
 
       if (smartphone.GetComponent<SmartphoneController>().hasPics())
+    if(amIServer == networkObject.IsServer){
+      if (Input.GetKey(KeyCode.Alpha1) && !isPhoneInHand){
+        // useObject("smartphone");
+        isGunInHand = false;
+        isPhoneInHand = true;
+        Debug.Log("hasPics "+ smartphone.GetComponent<SmartphoneController>().hasPics());
+        if (smartphone.GetComponent<SmartphoneController>().hasPics())
+        {
+          var t = smartphone.GetComponent<SmartphoneController>().showPic();
+          Debug.Log(t);
+          phoneImage.texture = t;// (Texture)smartphone.GetComponent<SmartphoneController>().showPic();
+        }
+      } 
+      else if (Input.GetKey(KeyCode.Alpha2) && !isGunInHand)
       {
-        var t = smartphone.GetComponent<SmartphoneController>().showPic();
-        Debug.Log(t);
-        phoneImage.texture = t;// (Texture)smartphone.GetComponent<SmartphoneController>().showPic();
+        // useObject("flareGun");
+        isGunInHand = true;
+        isPhoneInHand = false;
+        flareGun.transform.SetParent(gameObject.transform);
+        flareGun.transform.position = gunPosition;
+        flareGun.transform.rotation = gunRotation;
+        flareGun.GetComponent<Collider>().enabled = false;
+        flareGun.GetComponent<MeshRenderer>().enabled = false; // .SetActive(true);
+        Debug.Log("FlareGun");
+      } 
+      else if (Input.GetKey(KeyCode.Alpha3))
+      {
+        isGunInHand = false;
+        isPhoneInHand = false;
       }
+<<<<<<< Updated upstream
     } 
     else if (Input.GetKey(KeyCode.Alpha2) && !isGunInHand)
     {
@@ -272,18 +314,20 @@ public class ObjectsController : MonoBehaviour
     {
       isGunInHand = false;
       isPhoneInHand = false;
+=======
+>>>>>>> Stashed changes
     }
   }
 
   // Update is called once per frame
   void Update()
   {
-    keyPressedTimer -= Time.deltaTime;
-    shootTimer -= Time.deltaTime;
 
-    if (keyPressedTimer < 0)
-      isFunctionKeyPressed = false;
+    if(amIServer == networkObject.IsServer){
+        keyPressedTimer -= Time.deltaTime;
+        shootTimer -= Time.deltaTime;
 
+<<<<<<< Updated upstream
     if (shootTimer < 0)
       wasShot = false;
     switchItem();
@@ -317,15 +361,55 @@ public class ObjectsController : MonoBehaviour
       flareGun.transform.position = gunPosition;
       flareGun.transform.rotation = gunRotation;
     }
+=======
+        if (keyPressedTimer < 0)
+          isFunctionKeyPressed = false;
+
+        if (shootTimer < 0)
+          wasShot = false;
+        switchItem();
+        
+        if (Input.GetKey(KeyCode.F) && !isFunctionKeyPressed) 
+        {
+          isFunctionKeyPressed = true;
+          keyPressedTimer = 1f;
+          pickUp();
+        }
+        
+        if (Input.GetKey(KeyCode.E) && isGunInHand && !wasShot)
+        {
+          wasShot = true;
+          shootTimer = 2f;
+          useObject("flareGun");
+        }
+        
+        if (isPickedUpCompass && !compass.activeSelf){
+          compass.GetComponent<MeshRenderer>().enabled = false; // .SetActive(true);
+        }
+        
+        if (isPickedUpMap && !compass.activeSelf)
+        {
+          map.GetComponent<MeshRenderer>().enabled = false; // .SetActive(true);
+        }
+        
+        if (isPickedUpFlareGun)
+        {
+          flareGun.transform.position = gunPosition;
+          flareGun.transform.rotation = gunRotation;
+        }
+  }
+>>>>>>> Stashed changes
 
   }
   public void LateUpdate()
   {
-    if  ((Input.GetKey(KeyCode.E)) && (isPhoneInHand) && !isFunctionKeyPressed)
-    {
-      isFunctionKeyPressed = true;
-      keyPressedTimer = 1f;
-      StartCoroutine(takePic());
+    if(amIServer == networkObject.IsServer){
+      if  ((Input.GetKey(KeyCode.E)) && (isPhoneInHand) && !isFunctionKeyPressed)
+      {
+        isFunctionKeyPressed = true;
+        keyPressedTimer = 1f;
+        StartCoroutine(takePic());
+      }
     }
   }
   
