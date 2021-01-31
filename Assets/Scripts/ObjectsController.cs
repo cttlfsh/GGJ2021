@@ -122,6 +122,11 @@ public class ObjectsController : MonoBehaviour
           case "beacon":
             isPickedUpBeacon = true;
             pickUpFromScene(ref beacon, hit.collider.gameObject);
+            beacon.SetActive(true);
+            beacon.GetComponent<MeshRenderer>().enabled = false;
+            beacon.GetComponent<BeaconController>().SetOwned();
+            beacon.GetComponent<BeaconController>().SetOwner(gameObject);
+
             break;
           default:
           break;
