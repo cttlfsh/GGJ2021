@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ObjectsController : MonoBehaviour
 {
@@ -11,15 +12,18 @@ public class ObjectsController : MonoBehaviour
   private bool isPickedUpMap;
   private bool isPickedUpWalkieTalkie;
 
-  private GameObject smartphone;
+  public GameObject smartphone;
   private GameObject flareGun;
   private GameObject map;
   private GameObject beacon;
   private GameObject compass;
   private GameObject walkieTalkie;
 
+  private string area;
+
   public GameObject pickedUpSmartphonePrefab;
   public GameObject pickedUpFlareGunPrefab;
+  public RawImage phoneImage;
   private bool isPhoneInHand;
   private bool isGunInHand;
   private bool isFunctionKeyPressed;
@@ -35,6 +39,7 @@ public class ObjectsController : MonoBehaviour
     isGunInHand = false;
     isFunctionKeyPressed = false;
     keyPressedTimer = 1f;
+    area = "";
   }
   void pickUpFromScene(ref GameObject element, GameObject sceneObject)
   {
@@ -42,6 +47,25 @@ public class ObjectsController : MonoBehaviour
     sceneObject.SetActive(false);
     // Destroy(sceneObject);
   }
+
+  public void setArea(string new_area)
+  {
+    area = new_area;
+    // play a sound
+  }
+
+  public string getArea()
+  {
+    if (isPickedUpWalkieTalkie)
+    {
+      return area;
+    }
+    else
+    {
+      return "";
+    }
+  }
+
   bool pickUp()
   {
     Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -57,6 +81,11 @@ public class ObjectsController : MonoBehaviour
         switch (hit.collider.name)
         {
           case "smartphone":
+            Debug.Log("Smartphone picked up!");
+            isPickedUpSmartphone = true;
+            pickUpFromScene(ref smartphone, hit.collider.gameObject);
+            break;
+          case "smartphone1":
             Debug.Log("Smartphone picked up!");
             isPickedUpSmartphone = true;
             pickUpFromScene(ref smartphone, hit.collider.gameObject);
@@ -192,15 +221,12 @@ public class ObjectsController : MonoBehaviour
       // useObject("smartphone");
       isGunInHand = false;
       isPhoneInHand = true;
-      // Debug.Log("In");
-      // Debug.Log(smartphone.transform.position);
-      // Debug.Log("Out");
-      // Debug.Log(pickedUpSmartphonePrefab.transform.position);
-      smartphone.transform.SetParent(transform);
-      smartphone.transform.position = pickedUpSmartphonePrefab.transform.position;
-      smartphone.transform.rotation = pickedUpSmartphonePrefab.transform.rotation;
-      smartphone.SetActive(true);
-
+      if (smartphone.GetComponent<SmartphoneController>().hasPics())
+      {
+        var t = smartphone.GetComponent<SmartphoneController>().showPic();
+        Debug.Log(t);
+        phoneImage.texture = t;// (Texture)smartphone.GetComponent<SmartphoneController>().showPic();
+      }
     } 
     else if (Input.GetKey(KeyCode.Alpha2))
     {
@@ -233,6 +259,13 @@ public class ObjectsController : MonoBehaviour
     if (isPhoneInHand)
     {
 
+    }
+    if (isPickedUpCompass && !compass.activeSelf){
+      compass.SetActive(true);
+    }
+    if (isPickedUpMap && !compass.activeSelf)
+    {
+      map.SetActive(true);
     }
   }
   public void LateUpdate()

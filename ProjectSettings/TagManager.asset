@@ -6,10 +6,9 @@ TagManager:
   tags:
   - object
   - compass_reference
-  tags:
   - Fire
-  - Terrain
   - Island
+  - phoneImage
   layers:
   - Default
   - TransparentFX
@@ -19,11 +18,9 @@ TagManager:
   - UI
   - 
   - 
-  - Minimap
-  - Compass
+  - Player
+  - UIObject
   - Terrain
-  - 
-  - 
   - 
   - 
   - 
