@@ -71,28 +71,28 @@ public class ProceduralGenerator : MonoBehaviour {
         Debug.Log("SERVER STATUS OBJECT: " + serverStatus + ". IS_SERVER: " + serverStatus.GetComponent<ServerCheck>().isServer);
         myMan.SetActive(true);
         myGal.SetActive(true);
-        int r = Random.Range(0, terrains.Length);
-        GameObject spawnTerrain = instantiatedTiles[r];
-        Debug.Log(spawnTerrain);
+
+        for (var i = 0; i < instantiatedTiles.Count; i++)
+        {
+            Debug.Log(instantiatedTiles[i]);
+        }
+
         if (serverStatus.GetComponent<ServerCheck>().isServer){
             // Spawning MyMan
+            int r = Random.Range(0, terrains.Length);
+            GameObject spawnTerrain = instantiatedTiles[r];
+            Debug.Log(spawnTerrain);
             string[] myManSpawnPoints = {"SpawnMyMan1", "SpawnMyMan2"}; 
             myMan.transform.position = spawnTerrain.transform.position + spawnTerrain.transform.Find(myManSpawnPoints[Random.Range(0, 2)]).localPosition;
             // Spawning MyGal
+            int r2 = Random.Range(0, terrains.Length);
+            GameObject spawnTerrain2 = instantiatedTiles[r2];
+            Debug.Log(spawnTerrain2);
             string[] myGalSpawnPoints = {"SpawnMyGal1", "SpawnMyGal2"}; 
-            myGal.transform.position = spawnTerrain.transform.position + spawnTerrain.transform.Find(myGalSpawnPoints[Random.Range(0, 2)]).localPosition;
+            myGal.transform.position = spawnTerrain2.transform.position + spawnTerrain2.transform.Find(myGalSpawnPoints[Random.Range(0, 2)]).localPosition;
             GetComponent<SpawnPlayersManager>().myManPos = myMan.transform.position;
             GetComponent<SpawnPlayersManager>().myGalPos = myGal.transform.position;
         }
 
-    }
-
-    void Start()
-    {
-    }
-
-    private void SpawnPlayer(GameObject player, GameObject terrain, string[] spawnPointNames){
-        player.transform.position = terrain.transform.position + terrain.transform.Find(spawnPointNames[Random.Range(0, 2)]).localPosition;
-        
     }
 }
