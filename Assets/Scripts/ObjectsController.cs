@@ -27,8 +27,13 @@ public class ObjectsController : MonoBehaviour
   private bool isPhoneInHand;
   private bool isGunInHand;
   private bool isFunctionKeyPressed;
+  private bool wasShot;
+  
+  private Vector3 gunPosition;
+  private Quaternion gunRotation;
 
   private float keyPressedTimer;
+  private float shootTimer;
   // private Collider coll;
 
   // Start is called before the first frame update
@@ -39,7 +44,11 @@ public class ObjectsController : MonoBehaviour
     isGunInHand = false;
     isFunctionKeyPressed = false;
     keyPressedTimer = 1f;
+    wasShot = false;
+    shootTimer = 2f;
     area = "";
+    gunPosition = new Vector3(transform.position.x + 0.2f, transform.position.y+0.6f, transform.position.z+ 0.1f);
+    gunRotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y - 180, transform.rotation.z);
   }
   void pickUpFromScene(ref GameObject element, GameObject sceneObject)
   {
@@ -96,6 +105,7 @@ public class ObjectsController : MonoBehaviour
             pickUpFromScene(ref map, hit.collider.gameObject);
             break;
           case "flareGun":
+            Debug.Log("picking up gun");
             isPickedUpFlareGun = true;
             pickUpFromScene(ref flareGun, hit.collider.gameObject);
             break;
@@ -217,7 +227,7 @@ public class ObjectsController : MonoBehaviour
 
   void switchItem()
   {
-    if (Input.GetKey(KeyCode.Alpha1)){
+    if (Input.GetKey(KeyCode.Alpha1) && !isPhoneInHand){
       // useObject("smartphone");
       isGunInHand = false;
       isPhoneInHand = true;
@@ -228,11 +238,17 @@ public class ObjectsController : MonoBehaviour
         phoneImage.texture = t;// (Texture)smartphone.GetComponent<SmartphoneController>().showPic();
       }
     } 
-    else if (Input.GetKey(KeyCode.Alpha2))
+    else if (Input.GetKey(KeyCode.Alpha2) && !isGunInHand)
     {
       // useObject("flareGun");
       isGunInHand = true;
       isPhoneInHand = false;
+      flareGun.transform.SetParent(gameObject.transform);
+      flareGun.transform.position = gunPosition;
+      flareGun.transform.rotation = gunRotation;
+      flareGun.GetComponent<Collider>().enabled = false;
+      flareGun.SetActive(true);
+      Debug.Log("FlareGun");
     } 
     else if (Input.GetKey(KeyCode.Alpha3))
     {
@@ -245,28 +261,44 @@ public class ObjectsController : MonoBehaviour
   void Update()
   {
     keyPressedTimer -= Time.deltaTime;
+    shootTimer -= Time.deltaTime;
 
     if (keyPressedTimer < 0)
       isFunctionKeyPressed = false;
 
+    if (shootTimer < 0)
+      wasShot = false;
     switchItem();
+    
     if (Input.GetKey(KeyCode.F) && !isFunctionKeyPressed) 
     {
       isFunctionKeyPressed = true;
       keyPressedTimer = 1f;
       pickUp();
     }
-    if (isPhoneInHand)
+    
+    if (Input.GetKey(KeyCode.E) && isGunInHand && !wasShot)
     {
-
+      wasShot = true;
+      shootTimer = 2f;
+      useObject("flareGun");
     }
+    
     if (isPickedUpCompass && !compass.activeSelf){
       compass.SetActive(true);
     }
+    
     if (isPickedUpMap && !compass.activeSelf)
     {
       map.SetActive(true);
     }
+    
+    if (isPickedUpFlareGun)
+    {
+      flareGun.transform.position = gunPosition;
+      flareGun.transform.rotation = gunRotation;
+    }
+
   }
   public void LateUpdate()
   {
@@ -275,7 +307,6 @@ public class ObjectsController : MonoBehaviour
       isFunctionKeyPressed = true;
       keyPressedTimer = 1f;
       StartCoroutine(takePic());
-      // useObject("flareGun");
     }
   }
   

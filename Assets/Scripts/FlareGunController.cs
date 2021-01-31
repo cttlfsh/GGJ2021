@@ -20,6 +20,7 @@ public class FlareGunController : MonoBehaviour
   {
     if ((remainingBullets > 0) && (remainingBullets <= 3))
     {
+      remainingBullets--;
       var bullet = Instantiate(bulletPrefab, transform.position, transform.rotation);
       bullet.transform.Rotate(Vector3.left * 90);
       Rigidbody rb;
