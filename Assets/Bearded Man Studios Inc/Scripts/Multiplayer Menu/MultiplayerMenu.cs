@@ -7,8 +7,13 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+using ServerStatusCheck;
+
 public class MultiplayerMenu : MonoBehaviour
 {
+
+	public GameObject serverCheck;
+
 	public InputField ipAddress = null;
 	public InputField portNumber = null;
 	public bool DontChangeSceneOnConnect = false;
@@ -141,6 +146,7 @@ public class MultiplayerMenu : MonoBehaviour
 
 	public void Host()
 	{
+		serverCheck.GetComponent<ServerCheck>().isServer = true;
 		if (useTCP)
 		{
 			server = new TCPServer(64);

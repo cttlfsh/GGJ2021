@@ -4,11 +4,12 @@ using UnityEngine;
 
 namespace BeardedManStudios.Forge.Networking.Generated
 {
-	[GeneratedRPC("{\"types\":[[\"Vector3\", \"bool\", \"bool\"]]")]
-	[GeneratedRPCVariableNames("{\"types\":[[\"position\", \"rotation\", \"cacca\"]]")]
+	[GeneratedRPC("{\"types\":[[\"Vector3\", \"bool\", \"bool\"][\"Vector3\"]]")]
+	[GeneratedRPCVariableNames("{\"types\":[[\"position\", \"rotation\", \"cacca\"][\"initialiPosition\"]]")]
 	public abstract partial class MovePlayerBehavior : NetworkBehavior
 	{
 		public const byte RPC_MOVE = 0 + 5;
+		public const byte RPC_SEND_INITIAL_POSITION = 1 + 5;
 		
 		public MovePlayerNetworkObject networkObject = null;
 
@@ -23,6 +24,7 @@ namespace BeardedManStudios.Forge.Networking.Generated
 
 			base.SetupHelperRpcs(networkObject);
 			networkObject.RegisterRpc("Move", Move, typeof(Vector3), typeof(bool), typeof(bool));
+			networkObject.RegisterRpc("SendInitialPosition", SendInitialPosition, typeof(Vector3));
 
 			networkObject.onDestroy += DestroyGameObject;
 
@@ -106,6 +108,11 @@ namespace BeardedManStudios.Forge.Networking.Generated
 		/// bool cacca
 		/// </summary>
 		public abstract void Move(RpcArgs args);
+		/// <summary>
+		/// Arguments:
+		/// Vector3 initialiPosition
+		/// </summary>
+		public abstract void SendInitialPosition(RpcArgs args);
 
 		// DO NOT TOUCH, THIS GETS GENERATED PLEASE EXTEND THIS CLASS IF YOU WISH TO HAVE CUSTOM CODE ADDITIONS
 	}
