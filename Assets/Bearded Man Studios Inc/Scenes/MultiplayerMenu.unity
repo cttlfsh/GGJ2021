@@ -1521,8 +1521,12 @@ MonoBehaviour:
   - {fileID: 1920631495}
   useMainThreadManagerForRPCs: 1
   useInlineChat: 0
-  getLocalNetworkConnections: 0
+  getLocalNetworkConnections: 1
   useTCP: 0
+  ipAddrUI: {fileID: 1926933002}
+  portUI: {fileID: 845038658}
+  newServer: 
+  newPort: 
 --- !u!114 &2008293288
 MonoBehaviour:
   m_ObjectHideFlags: 0
