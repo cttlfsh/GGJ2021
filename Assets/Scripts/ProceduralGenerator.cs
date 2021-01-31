@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Timers;
 
 using ServerStatusCheck;
 
@@ -21,6 +22,7 @@ public class ProceduralGenerator : MonoBehaviour {
     private List<GameObject> instantiatedTiles = new List<GameObject>();
 
     void Awake() {
+
         // Basta la X dato che la tile e' quadrata
         float tileSize = mold.GetComponent<Renderer>().bounds.size.x;
 
@@ -72,11 +74,6 @@ public class ProceduralGenerator : MonoBehaviour {
         myMan.SetActive(true);
         myGal.SetActive(true);
 
-        for (var i = 0; i < instantiatedTiles.Count; i++)
-        {
-            Debug.Log(instantiatedTiles[i]);
-        }
-
         if (serverStatus.GetComponent<ServerCheck>().isServer){
             // Spawning MyMan
             int r = Random.Range(0, terrains.Length);
@@ -93,6 +90,7 @@ public class ProceduralGenerator : MonoBehaviour {
             GetComponent<SpawnPlayersManager>().myManPos = myMan.transform.position;
             GetComponent<SpawnPlayersManager>().myGalPos = myGal.transform.position;
         }
-
     }
+
+    
 }
