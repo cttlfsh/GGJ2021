@@ -24,6 +24,8 @@ public class ObjectsController : MonoBehaviour
   public GameObject pickedUpSmartphonePrefab;
   public GameObject pickedUpFlareGunPrefab;
   public RawImage phoneImage;
+  public RawImage mapImage;
+  public RawImage compassImage;
   private bool isPhoneInHand;
   private bool isGunInHand;
   private bool isFunctionKeyPressed;
@@ -54,6 +56,7 @@ public class ObjectsController : MonoBehaviour
   {
     element = sceneObject;
     sceneObject.SetActive(false);
+    sceneObject.transform.SetParent(transform);
     // Destroy(sceneObject);
   }
 
@@ -113,6 +116,10 @@ public class ObjectsController : MonoBehaviour
             isPickedUpCompass = true;
             useObject("compass");
             pickUpFromScene(ref compass, hit.collider.gameObject);
+            compass.transform.position = transform.position;
+            compass.GetComponent<CompassController>().owned();
+            compass.SetActive(true);
+
             break;
           case "walkieTalkie":
             isPickedUpWalkieTalkie = true;
@@ -236,6 +243,8 @@ public class ObjectsController : MonoBehaviour
       // useObject("smartphone");
       isGunInHand = false;
       isPhoneInHand = true;
+      smartphone.transform.SetParent(gameObject.transform);
+
       if (smartphone.GetComponent<SmartphoneController>().hasPics())
       {
         var t = smartphone.GetComponent<SmartphoneController>().showPic();
@@ -289,13 +298,13 @@ public class ObjectsController : MonoBehaviour
       useObject("flareGun");
     }
     
-    if (isPickedUpCompass && !compass.activeSelf){
-      compass.SetActive(true);
+    if (isPickedUpCompass){
+      compassImage.enabled = true;
     }
     
-    if (isPickedUpMap && !compass.activeSelf)
+    if (isPickedUpMap)
     {
-      map.SetActive(true);
+      mapImage.enabled = true;
     }
     
     if (isPickedUpFlareGun)
