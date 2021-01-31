@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 33000013730585832}
   - component: {fileID: 23000012893557420}
   - component: {fileID: 64049630543538196}
+  - component: {fileID: 7047255133787699222}
   m_Layer: 0
   m_Name: tree-forest
   m_TagString: Untagged
@@ -90,8 +91,22 @@ MeshCollider:
   m_GameObject: {fileID: 1000012870185536}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: c4a2f7405766f4630a5dd20c7bfe5dd5, type: 3}
+--- !u!136 &7047255133787699222
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000012870185536}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.57257545
+  m_Height: 4.3542643
+  m_Direction: 1
+  m_Center: {x: 0, y: 2.1632981, z: -0.02809298}
