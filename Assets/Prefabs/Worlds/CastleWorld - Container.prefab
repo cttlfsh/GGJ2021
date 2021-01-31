@@ -81845,7 +81845,7 @@ GameObject:
   - component: {fileID: 4825338500640912898}
   - component: {fileID: 3001018245380119120}
   m_Layer: 0
-  m_Name: CastleWorld - Container 1
+  m_Name: CastleWorld - Container
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -81908,7 +81908,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 0
   MinDistance: 1
-  MaxDistance: 50
+  MaxDistance: 40
   Pan2D: 0
   rolloffMode: 2
   BypassEffects: 0
