@@ -49,6 +49,7 @@ public class ObjectsController : MonoBehaviour
     wasShot = false;
     shootTimer = 2f;
     area = "";
+    // Debug.Log(transform.position);
     gunPosition = new Vector3(transform.position.x + 0.2f, transform.position.y+0.6f, transform.position.z+ 0.1f);
     gunRotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y - 180, transform.rotation.z);
   }
@@ -111,6 +112,8 @@ public class ObjectsController : MonoBehaviour
             Debug.Log("picking up gun");
             isPickedUpFlareGun = true;
             pickUpFromScene(ref flareGun, hit.collider.gameObject);
+            flareGun.transform.position = gunPosition;
+
             break;
           case "compass":
             isPickedUpCompass = true;
@@ -257,12 +260,13 @@ public class ObjectsController : MonoBehaviour
       // useObject("flareGun");
       isGunInHand = true;
       isPhoneInHand = false;
-      flareGun.transform.SetParent(gameObject.transform);
-      flareGun.transform.position = gunPosition;
-      flareGun.transform.rotation = gunRotation;
-      flareGun.GetComponent<Collider>().enabled = false;
+      // flareGun.transform.SetParent(gameObject.transform);
+      // Debug.Log(gunPosition);
       flareGun.SetActive(true);
-      Debug.Log("FlareGun");
+      // flareGun.transform.position = gunPosition;
+      // flareGun.transform.rotation = gunRotation;
+      // flareGun.GetComponent<Collider>().enabled = false;
+      // Debug.Log("FlareGun");
     } 
     else if (Input.GetKey(KeyCode.Alpha3))
     {
@@ -309,6 +313,7 @@ public class ObjectsController : MonoBehaviour
     
     if (isPickedUpFlareGun)
     {
+      Debug.Log(flareGun);
       flareGun.transform.position = gunPosition;
       flareGun.transform.rotation = gunRotation;
     }

@@ -35,9 +35,6 @@ public class FlareGunController : MonoBehaviour
   // Update is called once per frame
   void Update()
   {
-    if (transform.position.y > 20f)
-    {
-      Destroy(GetComponent<Rigidbody>());
-    }
+    
   }
 }
