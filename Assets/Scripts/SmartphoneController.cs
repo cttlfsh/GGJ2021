@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using Unity.Collections;
 using UnityEngine;
+using BeardedManStudios.Forge.Networking.Generated;
+using BeardedManStudios.Forge.Networking;
+
 
 public class SmartphoneController : MonoBehaviour
 {
@@ -47,8 +50,16 @@ public class SmartphoneController : MonoBehaviour
       byte[] bytes = new byte[toSend.Length];
       toSend.CopyTo(bytes);
       theOtherSmartphone.GetComponent<SmartphoneController>().receivePic(bytes);
+      // networkObject.SendRpc(RPC_UPDATEPHONE, Receivers.AllBuffered);
     }
   }
+    // public override void prova(RpcArgs args){
+      
+    // }
+    // public override void UpdatePhone(RpcArgs args)
+    // {
+
+    // }
 
   public void receivePic(byte[] pic)
   {
