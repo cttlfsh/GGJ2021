@@ -22,10 +22,11 @@ public class FlareGunController : MonoBehaviour
     {
       remainingBullets--;
       var bullet = Instantiate(bulletPrefab, transform.position, transform.rotation);
-      bullet.transform.Rotate(Vector3.left * 90);
+      bullet.transform.rotation = Quaternion.Euler(0f, 0f, 90f);
+      // bullet.transform.Rotate(Vector3.left * 90);
       Rigidbody rb;
       rb = bullet.GetComponent<Rigidbody>();
-      rb.AddForce(transform.forward * force);
+      rb.AddForce(new Vector3(0,2,0)*force);
 
       Destroy(bullet, flareTime);
     }
@@ -34,6 +35,9 @@ public class FlareGunController : MonoBehaviour
   // Update is called once per frame
   void Update()
   {
-    
+    if (transform.position.y > 20f)
+    {
+      Destroy(GetComponent<Rigidbody>());
+    }
   }
 }
