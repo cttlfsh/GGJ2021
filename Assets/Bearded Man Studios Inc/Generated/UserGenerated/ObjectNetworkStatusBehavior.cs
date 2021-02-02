@@ -4,16 +4,13 @@ using UnityEngine;
 
 namespace BeardedManStudios.Forge.Networking.Generated
 {
-	[GeneratedRPC("{\"types\":[[\"Vector3\", \"Vector3\", \"byte[]\"][\"byte\", \"Vector3\"][\"Vector3\"][\"string\"]]")]
-	[GeneratedRPCVariableNames("{\"types\":[[\"minimum\", \"maximum\", \"data\"][\"typebyte\", \"position\"][\"position\"][\"message\"]]")]
-	public abstract partial class CubeForgeGameBehavior : NetworkBehavior
+	[GeneratedRPC("{\"types\":[[\"byte[]\", \"string\"]]")]
+	[GeneratedRPCVariableNames("{\"types\":[[\"photo\", \"phoneName\"]]")]
+	public abstract partial class ObjectNetworkStatusBehavior : NetworkBehavior
 	{
-		public const byte RPC_INITIALIZE_MAP = 0 + 5;
-		public const byte RPC_CREATE_PRIMITIVE = 1 + 5;
-		public const byte RPC_DESTROY_PRIMITIVE = 2 + 5;
-		public const byte RPC_TEST_ME = 3 + 5;
+		public const byte RPC_UPDATE_PHONE = 0 + 5;
 		
-		public CubeForgeGameNetworkObject networkObject = null;
+		public ObjectNetworkStatusNetworkObject networkObject = null;
 
 		public override void Initialize(NetworkObject obj)
 		{
@@ -21,14 +18,11 @@ namespace BeardedManStudios.Forge.Networking.Generated
 			if (networkObject != null && networkObject.AttachedBehavior != null)
 				return;
 			
-			networkObject = (CubeForgeGameNetworkObject)obj;
+			networkObject = (ObjectNetworkStatusNetworkObject)obj;
 			networkObject.AttachedBehavior = this;
 
 			base.SetupHelperRpcs(networkObject);
-			networkObject.RegisterRpc("InitializeMap", InitializeMap, typeof(Vector3), typeof(Vector3), typeof(byte[]));
-			networkObject.RegisterRpc("CreatePrimitive", CreatePrimitive, typeof(byte), typeof(Vector3));
-			networkObject.RegisterRpc("DestroyPrimitive", DestroyPrimitive, typeof(Vector3));
-			networkObject.RegisterRpc("TestMe", TestMe, typeof(string));
+			networkObject.RegisterRpc("updatePhone", updatePhone, typeof(byte[]), typeof(string));
 
 			networkObject.onDestroy += DestroyGameObject;
 
@@ -86,7 +80,7 @@ namespace BeardedManStudios.Forge.Networking.Generated
 
 		public override void Initialize(NetWorker networker, byte[] metadata = null)
 		{
-			Initialize(new CubeForgeGameNetworkObject(networker, createCode: TempAttachCode, metadata: metadata));
+			Initialize(new ObjectNetworkStatusNetworkObject(networker, createCode: TempAttachCode, metadata: metadata));
 		}
 
 		private void DestroyGameObject(NetWorker sender)
@@ -97,7 +91,7 @@ namespace BeardedManStudios.Forge.Networking.Generated
 
 		public override NetworkObject CreateNetworkObject(NetWorker networker, int createCode, byte[] metadata = null)
 		{
-			return new CubeForgeGameNetworkObject(networker, this, createCode, metadata);
+			return new ObjectNetworkStatusNetworkObject(networker, this, createCode, metadata);
 		}
 
 		protected override void InitializedTransform()
@@ -107,27 +101,10 @@ namespace BeardedManStudios.Forge.Networking.Generated
 
 		/// <summary>
 		/// Arguments:
-		/// Vector3 minimum
-		/// Vector3 maximum
-		/// byte[] data
+		/// byte[] photo
+		/// string phoneName
 		/// </summary>
-		public abstract void InitializeMap(RpcArgs args);
-		/// <summary>
-		/// Arguments:
-		/// byte typebyte
-		/// Vector3 position
-		/// </summary>
-		public abstract void CreatePrimitive(RpcArgs args);
-		/// <summary>
-		/// Arguments:
-		/// Vector3 position
-		/// </summary>
-		public abstract void DestroyPrimitive(RpcArgs args);
-		/// <summary>
-		/// Arguments:
-		/// string message
-		/// </summary>
-		public abstract void TestMe(RpcArgs args);
+		public abstract void updatePhone(RpcArgs args);
 
 		// DO NOT TOUCH, THIS GETS GENERATED PLEASE EXTEND THIS CLASS IF YOU WISH TO HAVE CUSTOM CODE ADDITIONS
 	}

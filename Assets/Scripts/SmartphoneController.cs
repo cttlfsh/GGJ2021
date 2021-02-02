@@ -49,7 +49,8 @@ public class SmartphoneController : MonoBehaviour
       NativeArray<byte> toSend = privateGallery[privateIndex-1].GetRawTextureData<byte>();
       byte[] bytes = new byte[toSend.Length];
       toSend.CopyTo(bytes);
-      theOtherSmartphone.GetComponent<SmartphoneController>().receivePic(bytes);
+      //theOtherSmartphone.GetComponent<SmartphoneController>().receivePic(bytes);
+      GameObject.Find("Items").GetComponent<ObjectNetworkStatus>().UpdatePhoneStatus(bytes,theOtherSmartphone.name);
       // networkObject.SendRpc(RPC_UPDATEPHONE, Receivers.AllBuffered);
     }
   }
