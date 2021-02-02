@@ -49,6 +49,7 @@ public class ObjectsController : MonoBehaviour
     wasShot = false;
     shootTimer = 2f;
     area = "";
+    // Debug.Log(transform.position);
     gunPosition = new Vector3(transform.position.x + 0.2f, transform.position.y+0.6f, transform.position.z+ 0.1f);
     gunRotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y - 180, transform.rotation.z);
   }
@@ -92,33 +93,39 @@ public class ObjectsController : MonoBehaviour
       Debug.Log(transform.gameObject.name);
       switch (transform.gameObject.name)
       {
-        case "smartphone":
-          Debug.Log("Smartphone picked up!");
-          isPickedUpSmartphone = true;
-          pickUpFromScene(ref smartphone, transform.gameObject);
-          break;
-        case "smartphone1":
-          Debug.Log("Smartphone picked up!");
-          isPickedUpSmartphone = true;
-          pickUpFromScene(ref smartphone, transform.gameObject);
-          break;
-        case "minimap":
-          isPickedUpMap = true;
-          useObject("map");
-          pickUpFromScene(ref map, transform.gameObject);
-          break;
-        case "flareGun":
-          Debug.Log("picking up gun");
-          isPickedUpFlareGun = true;
-          pickUpFromScene(ref flareGun, transform.gameObject);
-          break;
-        case "compass":
-          isPickedUpCompass = true;
-          useObject("compass");
-          pickUpFromScene(ref compass, transform.gameObject);
-          compass.transform.position = transform.position;
-          compass.GetComponent<CompassController>().owned();
-          compass.SetActive(true);
+        Debug.Log("collider");
+        Debug.Log(hit.collider.name);
+        switch (hit.collider.name)
+        {
+          case "smartphone":
+            Debug.Log("Smartphone picked up!");
+            isPickedUpSmartphone = true;
+            pickUpFromScene(ref smartphone, hit.collider.gameObject);
+            break;
+          case "smartphone1":
+            Debug.Log("Smartphone picked up!");
+            isPickedUpSmartphone = true;
+            pickUpFromScene(ref smartphone, hit.collider.gameObject);
+            break;
+          case "minimap":
+            isPickedUpMap = true;
+            useObject("map");
+            pickUpFromScene(ref map, hit.collider.gameObject);
+            break;
+          case "flareGun":
+            Debug.Log("picking up gun");
+            isPickedUpFlareGun = true;
+            pickUpFromScene(ref flareGun, hit.collider.gameObject);
+            flareGun.transform.position = gunPosition;
+
+            break;
+          case "compass":
+            isPickedUpCompass = true;
+            useObject("compass");
+            pickUpFromScene(ref compass, hit.collider.gameObject);
+            compass.transform.position = transform.position;
+            compass.GetComponent<CompassController>().owned();
+            compass.SetActive(true);
 
           break;
         case "walkieTalkie":
@@ -257,12 +264,13 @@ public class ObjectsController : MonoBehaviour
       // useObject("flareGun");
       isGunInHand = true;
       isPhoneInHand = false;
-      flareGun.transform.SetParent(gameObject.transform);
-      flareGun.transform.position = gunPosition;
-      flareGun.transform.rotation = gunRotation;
-      flareGun.GetComponent<Collider>().enabled = false;
+      // flareGun.transform.SetParent(gameObject.transform);
+      // Debug.Log(gunPosition);
       flareGun.SetActive(true);
-      Debug.Log("FlareGun");
+      // flareGun.transform.position = gunPosition;
+      // flareGun.transform.rotation = gunRotation;
+      // flareGun.GetComponent<Collider>().enabled = false;
+      // Debug.Log("FlareGun");
     } 
     else if (Input.GetKey(KeyCode.Alpha3))
     {
@@ -320,6 +328,7 @@ public class ObjectsController : MonoBehaviour
     
     if (isPickedUpFlareGun)
     {
+      Debug.Log(flareGun);
       flareGun.transform.position = gunPosition;
       flareGun.transform.rotation = gunRotation;
     }

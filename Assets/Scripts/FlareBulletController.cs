@@ -14,5 +14,9 @@ public class FlareBulletController : MonoBehaviour
     void Update()
     {
         transform.position = gameObject.transform.position;
+        if (transform.position.y > 20f)
+        {
+        Destroy(GetComponent<Rigidbody>());
+        }
     }
 }
