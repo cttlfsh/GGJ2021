@@ -7,8 +7,13 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+using ServerStatusCheck;
+
 public class MultiplayerMenu : MonoBehaviour
 {
+
+	public GameObject serverCheck;
+
 	public InputField ipAddress = null;
 	public InputField portNumber = null;
 	public bool DontChangeSceneOnConnect = false;
@@ -36,14 +41,15 @@ public class MultiplayerMenu : MonoBehaviour
 	public bool useTCP = false;
 	public GameObject ipAddrUI;
 	public GameObject portUI;
-	public string newServer;
-	public string newPort;
+	private string newServer = "127.0.0.1";
+	private string newPort = "15937";
 
 	private void Start()
 	{
 		ipAddress.text = "127.0.0.1";
 		portNumber.text = "15937";
-
+		Debug.Log(ipAddress.text);
+		Debug.Log(portNumber.text);
 		for (int i = 0; i < ToggledButtons.Length; ++i)
 		{
 			Button btn = ToggledButtons[i].GetComponent<Button>();
@@ -141,6 +147,7 @@ public class MultiplayerMenu : MonoBehaviour
 
 	public void Host()
 	{
+		serverCheck.GetComponent<ServerCheck>().isServer = true;
 		if (useTCP)
 		{
 			server = new TCPServer(64);
@@ -150,8 +157,11 @@ public class MultiplayerMenu : MonoBehaviour
 		{
 			server = new UDPServer(64);
 
-			if (natServerHost.Trim().Length == 0)
+			if (natServerHost.Trim().Length == 0){
+				Debug.Log(ipAddress.text);
+				Debug.Log(portNumber.text);
 				((UDPServer)server).Connect(ipAddress.text, ushort.Parse(portNumber.text));
+			}
 			else
 				((UDPServer)server).Connect(port: ushort.Parse(portNumber.text), natHost: natServerHost, natPort: natServerPort);
 		}
