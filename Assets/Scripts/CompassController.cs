@@ -13,7 +13,7 @@ public class CompassController : MonoBehaviour
         isOwned = false;
     }
 
-    void owned()
+    public void owned()
     {
         isOwned = true;
     }

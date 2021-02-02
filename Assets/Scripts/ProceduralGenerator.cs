@@ -16,6 +16,7 @@ public class ProceduralGenerator : MonoBehaviour {
     public GameObject parentObject;
     public GameObject myMan;
     public GameObject myGal;
+    public GameObject canvas;
 
     private float nextXMoldPosition;
     private float nextZMoldPosition;
@@ -92,5 +93,8 @@ public class ProceduralGenerator : MonoBehaviour {
         }
     }
 
-    
+    void Start()
+    {
+        canvas.SetActive(true);
+    }
 }
