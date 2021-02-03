@@ -12,3 +12,5 @@
 |`feature-networking/*` |feature branches for the networking of the game. Name the mechanic after the `/`, e.g. `feature-networking/restart-game`. Merge into stable when finished working on the feature  |
 |`feature-ui/*` |feature branches for the UI of the game. Name the mechanic after the `/`, e.g. `feature-ui/game-ui`. Merge into stable when finished working on the feature  |
 |`feature-level-design/*` |feature branches for the networkingof the game. Name the mechanic after the `/`. Merge into stable when finished working on the feature  |
+
+If possible, avoid working on the same feature in two or more people to avoid to have to push different things on the same branch.
