@@ -40,7 +40,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
             oldPosition = transform.position;
             
 
-            GetComponent<ObjectsController>().setServer(amIServer);
+            // GetComponent<ObjectsController>().setServer(amIServer);
 
 
         }
