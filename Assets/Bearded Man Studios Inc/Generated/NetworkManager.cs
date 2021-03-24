@@ -198,17 +198,17 @@ namespace BeardedManStudios.Forge.Networking.Unity
 						objectInitialized(newObj, obj);
 				});
 			}
-			else if (obj is ObjectHandlerNetworkObject)
+			else if (obj is ObjectsControllerNetworkObject)
 			{
 				MainThreadManager.Run(() =>
 				{
 					NetworkBehavior newObj = null;
 					if (!NetworkBehavior.skipAttachIds.TryGetValue(obj.NetworkId, out newObj))
 					{
-						if (ObjectHandlerNetworkObject.Length > 0 && ObjectHandlerNetworkObject[obj.CreateCode] != null)
+						if (ObjectsControllerNetworkObject.Length > 0 && ObjectsControllerNetworkObject[obj.CreateCode] != null)
 						{
-							var go = Instantiate(ObjectHandlerNetworkObject[obj.CreateCode]);
-							newObj = go.GetComponent<ObjectHandlerBehavior>();
+							var go = Instantiate(ObjectsControllerNetworkObject[obj.CreateCode]);
+							newObj = go.GetComponent<ObjectsControllerBehavior>();
 						}
 					}
 
@@ -339,12 +339,12 @@ namespace BeardedManStudios.Forge.Networking.Unity
 			return netBehavior;
 		}
 		[Obsolete("Use InstantiateObjectHandler instead, its shorter and easier to type out ;)")]
-		public ObjectHandlerBehavior InstantiateObjectHandlerNetworkObject(int index = 0, Vector3? position = null, Quaternion? rotation = null, bool sendTransform = true)
+		public ObjectsControllerBehavior InstantiateObjectsControllerNetworkObject(int index = 0, Vector3? position = null, Quaternion? rotation = null, bool sendTransform = true)
 		{
-			var go = Instantiate(ObjectHandlerNetworkObject[index]);
-			var netBehavior = go.GetComponent<ObjectHandlerBehavior>();
+			var go = Instantiate(ObjectsControllerNetworkObject[index]);
+			var netBehavior = go.GetComponent<ObjectsControllerBehavior>();
 			var obj = netBehavior.CreateNetworkObject(Networker, index);
-			go.GetComponent<ObjectHandlerBehavior>().networkObject = (ObjectHandlerNetworkObject)obj;
+			go.GetComponent<ObjectsControllerBehavior>().networkObject = (ObjectsControllerNetworkObject)obj;
 
 			FinalizeInitialization(go, netBehavior, obj, position, rotation, sendTransform);
 			
@@ -724,16 +724,16 @@ namespace BeardedManStudios.Forge.Networking.Unity
 		/// Instantiate an instance of ObjectHandler
 		/// </summary>
 		/// <returns>
-		/// A local instance of ObjectHandlerBehavior
+		/// A local instance of ObjectsControllerBehavior
 		/// </returns>
 		/// <param name="index">The index of the ObjectHandler prefab in the NetworkManager to Instantiate</param>
 		/// <param name="position">Optional parameter which defines the position of the created GameObject</param>
 		/// <param name="rotation">Optional parameter which defines the rotation of the created GameObject</param>
 		/// <param name="sendTransform">Optional Parameter to send transform data to other connected clients on Instantiation</param>
-		public ObjectHandlerBehavior InstantiateObjectHandler(int index = 0, Vector3? position = null, Quaternion? rotation = null, bool sendTransform = true)
+		public ObjectsControllerBehavior InstantiateObjectHandler(int index = 0, Vector3? position = null, Quaternion? rotation = null, bool sendTransform = true)
 		{
-			var go = Instantiate(ObjectHandlerNetworkObject[index]);
-			var netBehavior = go.GetComponent<ObjectHandlerBehavior>();
+			var go = Instantiate(ObjectsControllerNetworkObject[index]);
+			var netBehavior = go.GetComponent<ObjectsControllerBehavior>();
 
 			NetworkObject obj = null;
 			if (!sendTransform && position == null && rotation == null)
@@ -765,7 +765,7 @@ namespace BeardedManStudios.Forge.Networking.Unity
 				obj = netBehavior.CreateNetworkObject(Networker, index, metadata.CompressBytes());
 			}
 
-			go.GetComponent<ObjectHandlerBehavior>().networkObject = (ObjectHandlerNetworkObject)obj;
+			go.GetComponent<ObjectsControllerBehavior>().networkObject = (ObjectsControllerNetworkObject)obj;
 
 			FinalizeInitialization(go, netBehavior, obj, position, rotation, sendTransform);
 			

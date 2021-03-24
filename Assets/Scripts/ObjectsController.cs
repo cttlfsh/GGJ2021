@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using BeardedManStudios.Forge.Networking.Generated;
+using BeardedManStudios.Forge.Networking;
 
-public class ObjectsController : MonoBehaviour
+public class ObjectsController : ObjectsControllerBehavior
 {
   private bool isPickedUpSmartphone;
   private bool isPickedUpCompass;
