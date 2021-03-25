@@ -84,7 +84,7 @@ public class BeaconController : MonoBehaviour
   // Update is called once per frame
   void Update()
   {
-    Debug.Log("update");
+    // Debug.Log("update");
     if (isOwned)
     {
       Debug.Log("owned");

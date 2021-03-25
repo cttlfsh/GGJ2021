@@ -28,6 +28,7 @@ public class ObjectsController : ObjectsControllerBehavior
   public RawImage phoneImage;
   public RawImage mapImage;
   public RawImage compassImage;
+
   private bool isPhoneInHand;
   private bool isGunInHand;
   private bool isFunctionKeyPressed;
@@ -98,7 +99,7 @@ public class ObjectsController : ObjectsControllerBehavior
     //   Debug.Log("Raycast!");
     //   if (hit.collider.tag == "object")
     //   {
-        // Debug.Log("collider");
+        Debug.Log("ObjectsController: pickup");
         // Debug.Log(hit.collider.name);
         switch (objectTransform.gameObject.name)
         {
