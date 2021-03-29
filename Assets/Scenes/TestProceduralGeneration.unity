@@ -405,7 +405,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c8046ebffcb6ee4b962be79211aa591, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeLeft: 300
+  timeLeft: 3000
   player1: {fileID: 2105840107}
   player2: {fileID: 2033226648}
 --- !u!1001 &271668319

@@ -719,9 +719,10 @@ GameObject:
   - component: {fileID: 5910265236416610891}
   - component: {fileID: 6415534220678241020}
   - component: {fileID: 5417149521694431550}
+  - component: {fileID: 6933731463679480925}
   m_Layer: 0
   m_Name: MyMan
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -825,7 +826,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   amIServer: 1
+  amINetworkingServer: 0
   oldPosition: {x: 0, y: 0, z: 0}
+--- !u!114 &6933731463679480925
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5417149521694431549}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee64ffaa3d7f19442b6f007281763906, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  smartphone: {fileID: 0}
+  pickedUpSmartphonePrefab: {fileID: 620715703413844313, guid: c9afc8ae9cccc144788f34cf9ce8f21a,
+    type: 3}
+  pickedUpFlareGunPrefab: {fileID: 0}
+  phoneImage: {fileID: 0}
+  mapImage: {fileID: 0}
+  compassImage: {fileID: 0}
 --- !u!1 &6006405410107376846
 GameObject:
   m_ObjectHideFlags: 0

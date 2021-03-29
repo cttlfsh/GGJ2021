@@ -91958,7 +91958,7 @@ SphereCollider:
   m_GameObject: {fileID: 5537012006780018595}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 7.5518684
   m_Center: {x: 0, y: 0, z: 0}
@@ -91974,8 +91974,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d97d3871fb56cd43bd78746b3373350, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uiObject: {fileID: 1432448736392839443, guid: 21913924fe9d5304886eae38b21aa22f,
-    type: 3}
 --- !u!1 &6252971325423127562
 GameObject:
   m_ObjectHideFlags: 0
@@ -92623,6 +92621,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: compass
+      objectReference: {fileID: 0}
+    - target: {fileID: 4275915088869162233, guid: 8ee1e1cbb6b32114d898c4bbaf88ab13,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5126958881865941827, guid: 8ee1e1cbb6b32114d898c4bbaf88ab13,
         type: 3}

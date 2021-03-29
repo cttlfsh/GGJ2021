@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4275915088869162230}
   - component: {fileID: 4275915088869162233}
   - component: {fileID: 5126958881865941827}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: compass
   m_TagString: object
   m_Icon: {fileID: 0}
@@ -32,6 +32,7 @@ Transform:
   m_LocalScale: {x: 0.24421954, y: 0.025645778, z: 0.2442195}
   m_Children:
   - {fileID: 9110226647264509343}
+  - {fileID: 1316932548998509533}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -110,6 +111,89 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   reference: {fileID: 0}
   isOwned: 0
+--- !u!1 &7020975188669425510
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1316932548998509533}
+  - component: {fileID: 1539002937728972062}
+  - component: {fileID: 3784958308192958609}
+  m_Layer: 0
+  m_Name: CompassCamera
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1316932548998509533
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7020975188669425510}
+  m_LocalRotation: {x: -0.03798854, y: -0.910011, z: 0.39705747, w: -0.11305865}
+  m_LocalPosition: {x: -0.4, y: 16.1, z: 1.52}
+  m_LocalScale: {x: 4.096236, y: 36.62186, z: 4.1211205}
+  m_Children: []
+  m_Father: {fileID: 4275915088869162228}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 46.991, y: 165.082, z: -1.7340001}
+--- !u!20 &1539002937728972062
+Camera:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7020975188669425510}
+  m_Enabled: 1
+  serializedVersion: 2
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0.63529414, g: 0.63529414, b: 0.63529414, a: 0}
+  m_projectionMatrixMode: 1
+  m_GateFitMode: 2
+  m_FOVAxisMode: 0
+  m_SensorSize: {x: 36, y: 24}
+  m_LensShift: {x: 0, y: 0}
+  m_FocalLength: 50
+  m_NormalizedViewPortRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+  near clip plane: 0.3
+  far clip plane: 1000
+  field of view: 34.3
+  orthographic: 0
+  orthographic size: 5
+  m_Depth: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 512
+  m_RenderingPath: -1
+  m_TargetTexture: {fileID: 8400000, guid: 41c67dff4aba5de4d9a64f7797f8fd46, type: 2}
+  m_TargetDisplay: 0
+  m_TargetEye: 3
+  m_HDR: 1
+  m_AllowMSAA: 1
+  m_AllowDynamicResolution: 0
+  m_ForceIntoRT: 0
+  m_OcclusionCulling: 0
+  m_StereoConvergence: 10
+  m_StereoSeparation: 0.022
+--- !u!81 &3784958308192958609
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7020975188669425510}
+  m_Enabled: 1
 --- !u!54 &2026256173027877595
 Rigidbody:
   m_ObjectHideFlags: 0

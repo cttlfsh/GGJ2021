@@ -26,6 +26,8 @@ public class CompassController : MonoBehaviour
             // Vector2 targetDir = owner.transform.position - reference.transform.position;
             // float angle = Vector2.Angle(targetDir, owner.transform.forward);
             transform.LookAt(reference.transform);
+            transform.gameObject.layer = 9;
+            transform.GetChild(0).gameObject.layer = 9;
         }
     }
 }
